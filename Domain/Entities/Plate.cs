@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Plate
+    public class Plate : EntityBase
     {
         public int Id { get; set; }
         public string Description { get; set; }

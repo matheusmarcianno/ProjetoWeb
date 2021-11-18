@@ -10,6 +10,11 @@ namespace Domain.interfaces
 {
     public interface IGenericServices<TEntity> where TEntity : EntityBase
     {
-        Task<SingleResult>
+        Task<SingleResult<TEntity>> InsertAsync(TEntity entity);
+        Task<Result> UpdateAsync(TEntity entity); 
+        Task<Result> DeleteAsync(TEntity entity);
+        Task<Result> DeleteAsync(int id);
+        Task<SingleResult<TEntity>> GetByIdAsync(int id);
+        Task<DataResult<TEntity>> GetAllAsync();
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Entities;
+using Shared.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,9 @@ namespace Domain.interfaces
 {
     internal interface IPllateService
     {
+        Task<SingleResult<Plate>> InsertAsync(Plate plate);
+        Task<Result> UpdateAsync(Plate plate);
+        Task<SingleResult<Plate>> GetByIdAsync(int id);
+        Task<DataResult<Plate>> GetAllAsync();
     }
 }

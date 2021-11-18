@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Order
+    public class Order : EntityBase
     {
         public int Id { get; set; }
         public DateTime OrdertDate { get; set; }
