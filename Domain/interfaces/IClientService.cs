@@ -12,7 +12,7 @@ namespace Domain.interfaces
     {
         Task<SingleResult<Client>> InsertAsync(Client client);
         Task<Result> UpdateAsync(Client client);
-        Task<SingleResult<Client>> GetByIdAsync(Client a);
+        Task<SingleResult<Client>> GetByIdAsync(int id);
         Task<DataResult<Client>> GetAllAsync();
 
     }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Domain.interfaces
 {
-    internal interface IPllateService
+    public interface IPlateService
     {
-        Task<SingleResult<Plate>> InsertAsync(Plate plate);
+        /*Task<SingleResult<Plate>> InsertAsync(Plate plate)*/
         Task<Result> UpdateAsync(Plate plate);
         Task<SingleResult<Plate>> GetByIdAsync(int id);
         Task<DataResult<Plate>> GetAllAsync();

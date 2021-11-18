@@ -17,7 +17,6 @@ namespace DAO.Context
         protected DbSet<Order> Orders; 
         protected DbSet<Plate> Plate; 
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(SqlDataBase.CONNECTION_STRING);

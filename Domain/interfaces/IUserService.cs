@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Domain.interfaces
 {
-    internal interface IUserService
+    public interface IUserService
     {
         Task<SingleResult<User>> InsertAsync(User user);
+        Task<Result> UpdateAsync(User usewr);
         Task<SingleResult<User>> GetByIdAsync(int id);
         Task<DataResult<User>> GetAllAsync();
     }
