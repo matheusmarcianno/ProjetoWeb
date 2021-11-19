@@ -18,6 +18,14 @@ namespace Appication.Services
     {
         protected readonly MainContext _dbContext;
 
+        public virtual async Task<Result> DeleteAsync(Plate plate)
+        {
+            this._dbContext.Set<Plate>().Remove(plate);
+            await this._dbContext.SaveChangesAsync();
+
+            return ResultFactory.CreateSuccessResult();
+        }
+
         public async Task<DataResult<Plate>> GetAllAsync()
         {
             var plates = await this._dbContext.Set<Plate>().ToListAsync();
@@ -30,7 +38,6 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(plate); 
         }
 
-
         public virtual async Task<SingleResult<Plate>> InsertAsync(Plate plate)
         {
             await this._dbContext.Set<Plate>().AddAsync(plate);
@@ -40,10 +47,12 @@ namespace Appication.Services
 
         }
 
-        //public Task<Result> UpdateAsync(Plate plate)
-        //{
-        //    var r = await new Result();
-        //    return r;
-        //}
+        public virtual async Task<Result> UpdateAsync(Plate plate)
+        {
+            var r = this._dbContext.Set<Plate>().Update(plate);
+            await this._dbContext.SaveChangesAsync();
+
+            return ResultFactory.CreateSuccessResult();
+        }
     }
 }
