@@ -1,6 +1,7 @@
 ﻿using DAO.Context;
 using Domain.Entities;
 using Domain.interfaces;
+using Domain.ValidationModel;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
 using Shared.Results;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Appication.Services
 {
-    public class OrderService : IOrderService
+    public class OrderService : OrderValidationModel, IOrderService
     {
         protected readonly MainContext _dbContext;
         public virtual async Task<DataResult<Order>> GetAllAsync()
@@ -29,6 +30,12 @@ namespace Appication.Services
 
         public virtual async Task<SingleResult<Order>> InsertAsync(Order order)
         {
+            var validation = this.Validate(order);
+            if (!validation.IsValid)
+            {
+                return ResultFactory.CreateFailureSingleResult(order);
+            }
+
             await this._dbContext.Set<Order>().AddAsync(order);
             await this._dbContext.SaveChangesAsync();
 

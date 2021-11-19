@@ -1,6 +1,7 @@
 ﻿using DAO.Context;
 using Domain.Entities;
 using Domain.interfaces;
+using Domain.ValidationModel;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
 using Shared.Results;
@@ -14,7 +15,7 @@ namespace Appication.Services
 {
     //TODO: Implementar os if's de validação utilizando a FluentValidation API.
 
-    public class UserService : IUserService
+    public class UserService : UserValidationModel, IUserService
     {
         protected readonly MainContext _dbContext;
 
@@ -32,6 +33,13 @@ namespace Appication.Services
 
         public async Task<SingleResult<User>> InsertAsync(User user)
         {
+            var validation = this.Validate(user);
+
+            if (!validation.IsValid)
+            {
+                return ResultFactory.CreateSuccessSingleResult(user);
+            }
+
             await this._dbContext.Set<User>().AddAsync(user);
             await this._dbContext.SaveChangesAsync();
 

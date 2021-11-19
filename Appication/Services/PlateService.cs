@@ -1,6 +1,7 @@
 ﻿using DAO.Context;
 using Domain.Entities;
 using Domain.interfaces;
+using Domain.ValidationModel;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
 using Shared.Results;
@@ -14,7 +15,7 @@ namespace Appication.Services
 {
     //TODO: implementar os if's de validação utilizando da FluentValidation API
 
-    public class PlateService : IPlateService
+    public class PlateService : PlateValidationModel, IPlateService
     {
         protected readonly MainContext _dbContext;
 
@@ -40,11 +41,16 @@ namespace Appication.Services
 
         public virtual async Task<SingleResult<Plate>> InsertAsync(Plate plate)
         {
+            var validation = this.Validate(plate);
+            if (!validation.IsValid)
+            {
+                return ResultFactory.CreateFailureSingleResult(plate);
+            }
+            
             await this._dbContext.Set<Plate>().AddAsync(plate);
             await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(plate);
-
         }
 
         public virtual async Task<Result> UpdateAsync(Plate plate)

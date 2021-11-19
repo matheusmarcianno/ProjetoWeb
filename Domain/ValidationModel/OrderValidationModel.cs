@@ -12,7 +12,8 @@ namespace Domain.ValidationModel
     {
         public OrderValidationModel()
         {
-
+            RuleFor(o => o.OrdertDate).NotEmpty();
+            RuleFor(o => o.Client).SetValidator(new ClientValidationModel());
         }
     }
 }

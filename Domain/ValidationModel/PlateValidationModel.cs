@@ -13,8 +13,8 @@ namespace Domain.ValidationModel
 	{
 		public PlateValidationModel()
 		{
-			RuleFor(p => p.Price).NotNull();
-			RuleFor(p => p.Description).NotNull().MaximumLength(150).MinimumLength(10);
+			RuleFor(p => p.Price).NotEmpty();
+			RuleFor(p => p.Description).NotEmpty().MaximumLength(150).MinimumLength(10);
 		}
 	}
 }

@@ -12,8 +12,8 @@ namespace Domain.ValidationModel
     {
         public UserValidationModel()
         {
-            RuleFor(u => u.Email).NotNull().EmailAddress().MaximumLength(100).MinimumLength(5);
-            RuleFor(u => u.Password).NotNull().GetHashCode();
+            RuleFor(u => u.Email).NotEmpty().EmailAddress().MaximumLength(100).MinimumLength(5);
+            RuleFor(u => u.Password).NotEmpty().GetHashCode();
         }
     }
 }
