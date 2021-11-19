@@ -41,7 +41,7 @@ namespace Domain.Extensions
 			else
 				resto = 11 - resto;
 			digito = digito + resto.ToString();
-			return cpf.EndsWith(digito)
+			return cpf.EndsWith(digito);
 		}
     }
 }

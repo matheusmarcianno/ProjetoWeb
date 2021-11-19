@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 
 namespace Appication.Services
 {
-    //TODO: Implementar os if's de validação utilizando a FluentValidation API.
-
+    //TODO: Verificar com o Carlitos se a maneira com que fiz a validação na Service está correta.
     public class UserService : UserValidationModel, IUserService
     {
         protected readonly MainContext _dbContext;
