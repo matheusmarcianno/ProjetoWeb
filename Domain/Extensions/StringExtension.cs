@@ -10,7 +10,7 @@ namespace Shared.Extensions
 {
     public static class StringExtension
     {
-		public static IRuleBuilder<Client, string> IsCpf(this IRuleBuilder<Client, string> cpf)
+		public static bool IsCpf(this string cpf)
 		{
 			int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 			int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -20,7 +20,8 @@ namespace Shared.Extensions
 			int resto;
 			cpf = cpf.Trim();
 			cpf = cpf.Replace(".", "").Replace("-", "");
-
+			if (cpf.Length != 11)
+				return false;
 			tempCpf = cpf.Substring(0, 9);
 			soma = 0;
 
@@ -42,7 +43,6 @@ namespace Shared.Extensions
 			else
 				resto = 11 - resto;
 			digito = digito + resto.ToString();
-
 			return cpf.EndsWith(digito);
 		}
 	}
