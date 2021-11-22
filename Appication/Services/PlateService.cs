@@ -13,8 +13,6 @@ using System.Threading.Tasks;
 
 namespace Appication.Services
 {
-    //TODO: implementar os if's de validação utilizando da FluentValidation API
-
     public class PlateService : PlateValidationModel, IPlateService
     {
         protected readonly MainContext _dbContext;

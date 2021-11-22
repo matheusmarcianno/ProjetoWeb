@@ -39,6 +39,7 @@ namespace Appication.Services
                 return ResultFactory.CreateSuccessSingleResult(user);
             }
 
+            await this._dbContext.Set<Client>().FindAsync(user.ClientId);
             await this._dbContext.Set<User>().AddAsync(user);
             await this._dbContext.SaveChangesAsync();
 

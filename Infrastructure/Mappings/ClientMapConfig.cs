@@ -17,8 +17,6 @@ namespace DAO.Mappings
             builder.Property(c => c.Cpf).IsRequired().IsUnicode(false).IsFixedLength().HasMaxLength(11);
             builder.Property(c => c.BirthDate).IsRequired();
             builder.Property(c => c.PhoneNumber).IsRequired().HasMaxLength(13).IsUnicode();
-
-            builder.HasMany(c => c.Orders).WithOne(o => o.Client);
         }
     }
 }

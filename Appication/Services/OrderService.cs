@@ -16,6 +16,7 @@ namespace Appication.Services
     public class OrderService : OrderValidationModel, IOrderService
     {
         protected readonly MainContext _dbContext;
+
         public virtual async Task<DataResult<Order>> GetAllAsync()
         {
             var orders = await this._dbContext.Set<Order>().ToListAsync();
@@ -36,6 +37,7 @@ namespace Appication.Services
                 return ResultFactory.CreateFailureSingleResult(order);
             }
 
+            await this._dbContext.Set<Client>().FindAsync(order.ClientId);
             await this._dbContext.Set<Order>().AddAsync(order);
             await this._dbContext.SaveChangesAsync();
 

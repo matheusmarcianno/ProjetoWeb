@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Entities;
+using Domain.interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC.Models;
 using System;
@@ -12,15 +14,32 @@ namespace MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IClientService _clientService;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var clientInsertresult = await _clientService.InsertAsync(new Client()
+            {
+                Id = 1,
+                Name = "Matheus Marciano",
+                Cpf = "06979837971",
+                BirthDate = DateTime.Now,
+                PhoneNumber = "47996886829",
+                Orders = new List<Order>()
+            });
+
+            if (!clientInsertresult.Success)
+            {
+                ViewBag.Error = clientInsertresult.Message;
+                return View();
+            }
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

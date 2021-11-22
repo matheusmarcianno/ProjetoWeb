@@ -13,14 +13,13 @@ using System.Threading.Tasks;
 
 namespace Appication.Services
 {
-    //TODO: fazer if's de validação em todos os métodos, implementando o FluentValidation API
-
     public class ClientService : ClientValidationModel, IClientService
     {
         private readonly MainContext _dbContext;
+
         public virtual async Task<DataResult<Client>> GetAllAsync()
         {
-            var clients = await this._dbContext.Set<Client>().ToListAsync();
+            var clients = await this._dbContext.Set<Client>().Include(c => c.Orders).ToListAsync();
             return ResultFactory.CreateSuccessDataResult(clients);
         }
 

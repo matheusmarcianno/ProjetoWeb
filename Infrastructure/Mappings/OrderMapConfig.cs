@@ -15,6 +15,7 @@ namespace DataAccessObject.Mappings
         {
             builder.Property(o => o.Status).IsRequired();
             builder.HasMany(o => o.Plates).WithMany(p => p.Orders);
+            builder.HasOne(o => o.Client).WithMany(c => c.Orders);
         }
     }
 }
