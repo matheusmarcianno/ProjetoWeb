@@ -14,6 +14,7 @@ namespace Domain.ValidationModel
         {
             RuleFor(u => u.Email).NotEmpty().EmailAddress().MaximumLength(100).MinimumLength(5);
             RuleFor(u => u.Password).NotEmpty().GetHashCode();
+            RuleFor(u => u.Client).SetValidator(new ClientValidationModel());
         }
     }
 }

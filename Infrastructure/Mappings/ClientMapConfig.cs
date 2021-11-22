@@ -14,7 +14,7 @@ namespace DAO.Mappings
         public void Configure(EntityTypeBuilder<Client> builder)
         {
             builder.Property(c => c.Name).IsRequired().IsUnicode(false).HasMaxLength(70);
-            builder.Property(c => c.Cpf).IsRequired().IsUnicode(false).IsFixedLength().HasMaxLength(11);
+            builder.Property(c => c.Cpf).IsRequired().IsUnicode(false).IsFixedLength().HasMaxLength(14);
             builder.Property(c => c.BirthDate).IsRequired();
             builder.Property(c => c.PhoneNumber).IsRequired().HasMaxLength(13).IsUnicode();
         }

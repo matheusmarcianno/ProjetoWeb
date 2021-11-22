@@ -11,7 +11,9 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public int RestaurantId { get; set; }
+        public Restaurant? Restaurant { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
+        public Client? Client { get; set; }
     }
 }

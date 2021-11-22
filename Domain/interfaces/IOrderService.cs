@@ -10,8 +10,8 @@ namespace Domain.interfaces
 {
     public interface IOrderService
     {
-        Task<SingleResult<Order>> InsertAsync(Order order);
-        Task<Result> UpdateAsync(Order order);
+        Task<SingleResult<Order>> InsertAsync(Order order, ICollection<Plate> plates, int clientId);
+        Task<Result> UpdateAsync(Order order, ICollection<Plate> plates);
         Task<SingleResult<Order>> GetByIdAsync(int id);
         Task<DataResult<Order>> GetAllAsync();
     }

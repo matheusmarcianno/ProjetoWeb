@@ -10,7 +10,7 @@ namespace Domain.interfaces
 {
     public interface IUserService
     {
-        Task<SingleResult<User>> InsertAsync(User user);
+        Task<SingleResult<User>> InsertAsync(User user, int clientId);
         Task<Result> UpdateAsync(User usewr);
         Task<SingleResult<User>> GetByIdAsync(int id);
         Task<DataResult<User>> GetAllAsync();

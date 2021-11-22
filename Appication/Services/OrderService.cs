@@ -29,7 +29,7 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(order);
         }
 
-        public virtual async Task<SingleResult<Order>> InsertAsync(Order order)
+        public virtual async Task<SingleResult<Order>> InsertAsync(Order order, ICollection<Plate> plates, int clientId)
         {
             var validation = this.Validate(order);
             if (!validation.IsValid)
@@ -37,15 +37,26 @@ namespace Appication.Services
                 return ResultFactory.CreateFailureSingleResult(order);
             }
 
-            await this._dbContext.Set<Client>().FindAsync(order.ClientId);
+            order.ClientId = clientId;
+
+            foreach (var plate in plates)
+            {
+                order.Plates.Add(plate);
+            }
+
             await this._dbContext.Set<Order>().AddAsync(order);
             await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(order);
         }
 
-        public virtual async Task<Result> UpdateAsync(Order order)
+        public virtual async Task<Result> UpdateAsync(Order order, ICollection<Plate> plates)
         {
+            foreach(var plate in plates)
+            {
+                order.Plates.Add(plate);
+            }
+
             this._dbContext.Set<Order>().Update(order);
             await this._dbContext.SaveChangesAsync();
 

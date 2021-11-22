@@ -30,7 +30,7 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(user);
         }
 
-        public async Task<SingleResult<User>> InsertAsync(User user)
+        public async Task<SingleResult<User>> InsertAsync(User user, int clientId)
         {
             var validation = this.Validate(user);
 
@@ -39,7 +39,7 @@ namespace Appication.Services
                 return ResultFactory.CreateSuccessSingleResult(user);
             }
 
-            await this._dbContext.Set<Client>().FindAsync(user.ClientId);
+            user.ClientId = clientId;
             await this._dbContext.Set<User>().AddAsync(user);
             await this._dbContext.SaveChangesAsync();
 
