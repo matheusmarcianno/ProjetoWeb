@@ -15,5 +15,25 @@ namespace Domain.Entities
         public Restaurant? Restaurant { get; set; }
         public int ClientId { get; set; }
         public Client? Client { get; set; }
+
+        public User() { }
+
+        public User(string email, string password)
+        {
+            this.Email = email;
+            this.Password = password;
+        }
+
+        public User SetClient(int clientId)
+        {
+            this.ClientId = clientId;
+            return this;
+        }
+
+        public User SetRestaurant(int restaurnatId)
+        {
+            this.RestaurantId = restaurnatId;
+            return this;
+        }
     }
 }

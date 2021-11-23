@@ -11,5 +11,14 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Cnpj { get; set; }
         public string PhoneNumber { get; set; }
+
+        public Restaurant() { }
+
+        public Restaurant(string name, string cnpj, string phoneNumber)
+        {
+            this.Name = name;
+            this.Cnpj = cnpj;
+            this.PhoneNumber = phoneNumber;
+        }
     }
 }

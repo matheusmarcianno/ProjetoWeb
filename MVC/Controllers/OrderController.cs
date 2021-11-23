@@ -20,31 +20,12 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertOrder()
+        public async Task<IActionResult> InsertOrder(Order order, ICollection<Plate> plates, int clientId)
         {
-            var order = new Order()
-            {
-                Id = 1,
-                Status = Status.Finalizado,
-                Client = new Client()
-                {       
-                    Id = 1,
-                    Name = "Matheus Marciano",
-                    BirthDate = DateTime.Now,
-                    Cpf = "09679837971",
-                    PhoneNumber = "47996886929",
-                    Orders = new List<Order>()
-                },
-                Plates = new List<Plate>()
-            };
-
-            var plates = new List<Plate>();
-            var clientId = 1;
-
             var result = await this._orderService.InsertAsync(order, plates, clientId);
             if (!result.Success)
             {
-                return ViewBag.Errors(result);
+                return ViewBag.Errors = result;
             }
 
             return RedirectToAction();

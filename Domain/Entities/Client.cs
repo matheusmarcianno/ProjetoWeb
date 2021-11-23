@@ -13,5 +13,15 @@ namespace Domain.Entities
         public DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public ICollection<Order> Orders { get; set; }
+
+        public Client() { }
+
+        public Client(string name, string cpf, string phoneNumber, DateTime birthDate)
+        {
+            this.Name = name;
+            this.Cpf = cpf;
+            this.PhoneNumber = phoneNumber;
+            this.BirthDate = birthDate;
+        }
     }
 }

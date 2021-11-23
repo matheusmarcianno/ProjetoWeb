@@ -13,15 +13,45 @@ using System.Threading.Tasks;
 
 namespace Appication.Services
 {
-    //TODO: Verificar com o Carlitos se a maneira com que fiz a validação na Service está correta.
     public class UserService : UserValidationModel, IUserService
     {
         protected readonly MainContext _dbContext;
+
+        public virtual async Task<SingleResult<User>> Authenticate(User user)
+        {
+            var result = this.Validate(user);
+            if (!result.IsValid)
+                return ResultFactory.CreateFailureSingleResult<User>();
+
+            var userAuthenticate = await this._dbContext.Set<User>()
+                .Include(u => u.Client)
+                .Include(u => u.Restaurant)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == user.Email);
+
+            if (userAuthenticate == null)
+                return ResultFactory.CreateFailureSingleResult<User>();
+
+            return ResultFactory.CreateSuccessSingleResult(userAuthenticate);
+        }
 
         public virtual async Task<DataResult<User>> GetAllAsync()
         {
             var users = await this._dbContext.Set<User>().ToListAsync();
             return ResultFactory.CreateSuccessDataResult(users);
+        }
+
+        public virtual async Task<SingleResult<User>> GetByEmail(string email)
+        {
+            var user = await this._dbContext.Set<User>()
+                .Include(u => u.Client)
+                .Include(u => u.Restaurant)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+                return ResultFactory.CreateFailureSingleResult<User>();
+
+            return ResultFactory.CreateSuccessSingleResult(user);
         }
 
         public virtual async Task<SingleResult<User>> GetByIdAsync(int id)
@@ -30,7 +60,7 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(user);
         }
 
-        public async Task<SingleResult<User>> InsertAsync(User user, int clientId)
+        public async Task<SingleResult<User>> InsertAsync(User user)
         {
             var validation = this.Validate(user);
 
@@ -39,7 +69,6 @@ namespace Appication.Services
                 return ResultFactory.CreateSuccessSingleResult(user);
             }
 
-            user.ClientId = clientId;
             await this._dbContext.Set<User>().AddAsync(user);
             await this._dbContext.SaveChangesAsync();
 

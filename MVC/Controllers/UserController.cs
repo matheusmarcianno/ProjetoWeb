@@ -14,27 +14,33 @@ namespace MVC.Controllers
         public UserController(IUserService userService, IClientService clientService)
         {
             this._userService = userService;
-            this._clientService = clientService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(int id)
+        {
+            var userResult = await this._userService.GetByIdAsync(id);
+            if (!userResult.Success)
+            {
+                ViewBag.Error = userResult; 
+                return View();
+            }
+
+            return RedirectToAction();
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertClien(Client client)
+        public async Task<IActionResult> Post(User user)
         {
-            var result = await this._clientService.InsertAsync(client);
-            if (!result.Success)
-                return ViewBag.Error(result.Message);
+            var userResult = await this._userService.Authenticate(user);
+            if (!userResult.Success)
+            {
+                ViewBag.Error = userResult;
+                return View();
+            }
 
-            return RedirectToAction("InsertUser");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> InsertUser(User user, int clientId)
-        {
-            var result = await this._userService.InsertAsync(user, clientId);
-            if (!result.Success)
-                return ViewBag.Erros(result);
-
-            return RedirectToAction("Index", "Home");
+            //TODO: Terminar este método.
+            return View();
         }
     }
 }
