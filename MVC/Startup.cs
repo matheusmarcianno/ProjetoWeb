@@ -1,6 +1,6 @@
 using Appication.Services;
 using DAO.Context;
-using Domain.interfaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +30,8 @@ namespace MVC
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IRestaurantService, RestaurantService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

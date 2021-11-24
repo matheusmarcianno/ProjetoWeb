@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Enum;
-using Domain.interfaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

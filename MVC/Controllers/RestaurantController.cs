@@ -1,4 +1,4 @@
-﻿using Domain.interfaces;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
@@ -10,15 +10,17 @@ namespace MVC.Controllers
     {
         private readonly IRestaurantService _restaurantService;
         private readonly IUserService _userService;
+        private readonly IPlateService _plateService;
 
-        public RestaurantController(IRestaurantService restaurantService, IUserService userService)
+        public RestaurantController(IRestaurantService restaurantService, IUserService userService, IPlateService plateService)
         {
-            this._restaurantService = restaurantService;
-            this._userService = userService;
+            _restaurantService = restaurantService;
+            _userService = userService;
+            _plateService = plateService;
         }
 
         [HttpPost("regiter")]
-        public async Task<IActionResult> Post(RestaurantRegisterModel registerModel)
+        public async Task<IActionResult> Register(RestaurantRegisterModel registerModel)
         {
             var restaurant = registerModel.ConvertToRestaurant();
             var user = registerModel.ConvertToUser();
@@ -36,8 +38,20 @@ namespace MVC.Controllers
                 return View();
             }
 
-            //TODO: direcionar...
-            return RedirectToAction("Index", "SignIn");
+            return RedirectToAction("SignIn", "User");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Insert(Plate plate)
+        {
+            var result = await _plateService.InsertAsync(plate);
+            if (!result.Success)
+            {
+                ViewBag.Error = result;
+                return View();
+            }
+
+            return RedirectToAction();
         }
     }
 }

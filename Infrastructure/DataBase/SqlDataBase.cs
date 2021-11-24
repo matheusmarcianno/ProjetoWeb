@@ -8,7 +8,7 @@ namespace DAO.DataBase
 {
     public static class SqlDataBase
     {
-        public const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Matheus Marciano\Documents\TESTE.mdf;Integrated Security=True;Connect Timeout=30";
+        public const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Matheus Marciano\Documents\DataBase.mdf;Integrated Security=True;Connect Timeout=30";
     }
 }
     

@@ -9,7 +9,6 @@ namespace Domain.Entities
 {
     public class Order : EntityBase
     {
-        public int Id { get; set; }
         public DateTime OrdertDate { get { return DateTime.Now; } }
         public Status Status {get; set;}
         public int ClientId { get; set; }

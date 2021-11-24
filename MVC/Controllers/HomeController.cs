@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
-using Domain.interfaces;
+using Domain.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC.Models;
@@ -14,20 +15,35 @@ namespace MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPlateService _plateService;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            { 
+                _plateService.GetAllAsync();
+                return View();
+            }
+            else
+                //retornar uma view index
+                return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Get(Plate plate)
         {
-            return View();
+
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

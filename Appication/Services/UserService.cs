@@ -1,6 +1,6 @@
 ﻿using DAO.Context;
 using Domain.Entities;
-using Domain.interfaces;
+using Domain.Interfaces;
 using Domain.ValidationModel;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
@@ -27,7 +27,7 @@ namespace Appication.Services
                 .Include(u => u.Client)
                 .Include(u => u.Restaurant)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email == user.Email);
+                .FirstOrDefaultAsync(u => u.Password == user.Password && u.Email == user.Email);
 
             if (userAuthenticate == null)
                 return ResultFactory.CreateFailureSingleResult<User>();

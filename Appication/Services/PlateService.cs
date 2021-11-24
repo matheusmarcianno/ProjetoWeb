@@ -1,6 +1,6 @@
 ﻿using DAO.Context;
 using Domain.Entities;
-using Domain.interfaces;
+using Domain.Interfaces;
 using Domain.ValidationModel;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;

@@ -1,4 +1,4 @@
-﻿using Domain.interfaces;
+﻿using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Threading.Tasks;
@@ -14,6 +14,11 @@ namespace MVC.Controllers
         {
             this._clientService = clientService;    
             this._userService = userService;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         [HttpPost("register")]
@@ -32,8 +37,8 @@ namespace MVC.Controllers
             if (!userInsertResult.Success) 
                 return ViewBag.Error = userInsertResult;
 
-            //TODO: direcionar...
-            return RedirectToAction("Login", "SignIn");
+            return RedirectToAction("SignIn", "User");
         }
+
     }
 }

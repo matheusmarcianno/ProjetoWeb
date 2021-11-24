@@ -8,7 +8,7 @@ namespace Domain.Entities
 {
     public class Plate : EntityBase
     {
-        public int Id { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
         public ICollection<Order>  Orders { get; set; }
