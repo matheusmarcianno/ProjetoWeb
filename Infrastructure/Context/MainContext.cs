@@ -1,4 +1,4 @@
-﻿using DAO.DataBase;
+﻿using Infrastructure.DataBase;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAO.Context
+namespace Infrastructure.Context
 {
     public class MainContext : DbContext
     {

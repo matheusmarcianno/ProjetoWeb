@@ -39,6 +39,5 @@ namespace MVC.Controllers
 
             return RedirectToAction("SignIn", "User");
         }
-
     }
 }

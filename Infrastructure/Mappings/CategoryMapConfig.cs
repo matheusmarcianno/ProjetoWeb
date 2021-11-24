@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Mappings
 {
-    public class UserMapConfig : IEntityTypeConfiguration<User>
+    public class CategoryMapConfig : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.Property(u => u.Email).IsRequired().IsUnicode(false).HasMaxLength(100);
-            builder.HasIndex(u => u.Email).IsUnique();
+            builder.Property(c => c.Name).IsRequired().HasMaxLength(50);
+            builder.HasMany(c => c.Plates).WithOne(p => p.Category);
         }
     }
 }

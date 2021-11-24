@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAO.Mappings
+namespace Infrastructure.Mappings
 {
     public class ClientMapConfig : IEntityTypeConfiguration<Client>
     {

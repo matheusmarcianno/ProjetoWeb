@@ -42,7 +42,7 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert(Plate plate)
+        public async Task<IActionResult> Post(Plate plate)
         {
             var result = await _plateService.InsertAsync(plate);
             if (!result.Success)
@@ -51,7 +51,8 @@ namespace MVC.Controllers
                 return View();
             }
 
-            return RedirectToAction();
+            return View();
+                
         }
     }
 }

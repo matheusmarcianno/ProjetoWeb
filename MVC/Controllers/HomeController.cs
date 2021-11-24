@@ -37,7 +37,7 @@ namespace MVC.Controllers
 
         public async Task<IActionResult> Get(Plate plate)
         {
-
+            return View();
         }
 
         public async Task<IActionResult> Logout()
