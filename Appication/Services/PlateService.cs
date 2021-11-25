@@ -27,7 +27,7 @@ namespace Appication.Services
 
         public async Task<DataResult<Plate>> GetAllAsync()
         {
-            var plates = await this._dbContext.Set<Plate>().ToListAsync();
+            var plates = await this._dbContext.Set<Plate>().Include(p => p.Category).ToListAsync();
             return ResultFactory.CreateSuccessDataResult(plates);
         }
 
@@ -44,7 +44,7 @@ namespace Appication.Services
             {
                 return ResultFactory.CreateFailureSingleResult(plate);
             }
-            
+
             await this._dbContext.Set<Plate>().AddAsync(plate);
             await this._dbContext.SaveChangesAsync();
 

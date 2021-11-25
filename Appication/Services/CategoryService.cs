@@ -23,6 +23,18 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessDataResult(categories);
         }
 
+        public async Task<SingleResult<Category>> GetByIdAsync(int id)
+        {
+            var category = await _dbContext.Set<Category>().FindAsync(id);
+            return ResultFactory.CreateSuccessSingleResult(category);
+        }
+
+        public async Task<DataResult<Category>> GetPlates(Category category)
+        {
+            var platesCategory = await _dbContext.Set<Category>().Include(c => c.Plates).FirstOrDefaultAsync(c => c.Id == category.Id);
+            return ResultFactory.CreateSuccessDataResult(platesCategory);
+        }
+
         public virtual async Task<SingleResult<Category>> InsertAsync(Category category)
         {
             await this._dbContext.Set<Category>().AddAsync(category);

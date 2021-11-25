@@ -20,7 +20,7 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertOrder(Order order, ICollection<Plate> plates, int clientId)
+        public async Task<IActionResult> InsertOrder(Order order, List<Plate> plates, int clientId)
         {
             var result = await this._orderService.InsertAsync(order, plates, clientId);
             if (!result.Success)

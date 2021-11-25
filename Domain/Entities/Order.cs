@@ -13,6 +13,9 @@ namespace Domain.Entities
         public Status Status {get; set;}
         public int ClientId { get; set; }
         public Client Client { get; set; }
+        public int RestaurantId { get; set; }
+        public Restaurant Restaurant { get; set; }
+
         public ICollection<Plate> Plates { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace Domain.Entities
     {
         public string Name { get; set; }
         public string Cpf { get; set; } 
+        public string Cep { get; set; }
         public DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public ICollection<Order> Orders { get; set; }

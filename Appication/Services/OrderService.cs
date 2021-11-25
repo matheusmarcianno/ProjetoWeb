@@ -19,7 +19,7 @@ namespace Appication.Services
 
         public virtual async Task<DataResult<Order>> GetAllAsync()
         {
-            var orders = await this._dbContext.Set<Order>().ToListAsync();
+            var orders = await this._dbContext.Set<Order>().Include(o => o.Client).ToListAsync();
             return ResultFactory.CreateSuccessDataResult(orders);
         }
 
@@ -29,7 +29,7 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(order);
         }
 
-        public virtual async Task<SingleResult<Order>> InsertAsync(Order order, ICollection<Plate> plates, int clientId)
+        public virtual async Task<SingleResult<Order>> InsertAsync(Order order, List<Plate> plates, int clientId)
         {
             var validation = this.Validate(order);
             if (!validation.IsValid)
@@ -50,7 +50,7 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(order);
         }
 
-        public virtual async Task<Result> UpdateAsync(Order order, ICollection<Plate> plates)
+        public virtual async Task<Result> UpdateAsync(Order order, List<Plate> plates)
         {
             foreach(var plate in plates)
             {

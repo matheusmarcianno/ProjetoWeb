@@ -48,9 +48,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasMaxLength(14)
-                        .IsUnicode(false)
-                        .HasColumnType("char(14)")
+                        .HasMaxLength(11)
+                        .IsUnicode(true)
+                        .HasColumnType("nchar(11)")
                         .IsFixedLength(true);
 
                     b.Property<string>("Name")
@@ -131,8 +131,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Cnpj")
                         .IsRequired()
                         .HasMaxLength(14)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(14)");
+                        .IsUnicode(true)
+                        .HasColumnType("nchar(14)")
+                        .IsFixedLength(true);
 
                     b.Property<string>("Name")
                         .HasMaxLength(70)

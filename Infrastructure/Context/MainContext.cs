@@ -15,7 +15,7 @@ namespace Infrastructure.Context
         protected DbSet<User> Users; 
         protected DbSet<Client> Client; 
         protected DbSet<Order> Orders; 
-        protected DbSet<Plate> Plate; 
+        protected DbSet<Plate> Plate;
         protected DbSet<Restaurant> Restaurant;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

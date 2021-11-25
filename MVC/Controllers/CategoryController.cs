@@ -21,7 +21,11 @@ namespace MVC.Controllers
             return View();
         }
 
-
+        public async Task<IActionResult> GetPlatesCategory(Category category)
+        {
+            var platesCategory = await _categoryService.GetPlates(category);
+            return View();
+        }
 
 
         [HttpPost]
@@ -34,7 +38,7 @@ namespace MVC.Controllers
                 return View();
             }
 
-            return RedirectToAction();
+            return View();
         }
     }
 }

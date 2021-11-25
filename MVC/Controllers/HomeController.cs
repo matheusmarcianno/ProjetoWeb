@@ -17,33 +17,39 @@ namespace MVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPlateService _plateService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPlateService plateService)
         {
             _logger = logger;
+            _plateService = plateService;
         }
 
-        [HttpGet]
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
             { 
-                _plateService.GetAllAsync();
-                return View();
+                return RedirectToAction("GetPlate");
             }
             else
-                //retornar uma view index
-                return View();
+                return View("SignIn", "User");
         }
 
-        public async Task<IActionResult> Get(Plate plate)
+        public async Task<IActionResult> GetPLates( )
         {
+            await _plateService.GetAllAsync();
             return View();
         }
+
+        public async Task<IActionResult> GetCategories()
+        {
+            await _plateService.GetAllAsync();
+            return View();
+        }
+        //TODO: implementar um método que vai permitir pegar os pratos da categoria que o usuário selecionar.
 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction();
+            return RedirectToAction("SignIn", "User");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

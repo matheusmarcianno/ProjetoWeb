@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace MVC.Controllers
 {
+    // Objeto Controller que vai ser resposável por gerenciar a tela de cadastro de clientes,
+    // que deve conter todos os campos presentes no "ClientRegisterModel".
     public class ClientController : Controller
     {
         private readonly IClientService _clientService;
@@ -21,7 +23,7 @@ namespace MVC.Controllers
             return View();
         }
 
-        [HttpPost("register")]
+        [HttpPost]
         public async Task<IActionResult> Register(ClientRegisterModel registerModel)
         {
             var client = registerModel.ConvertToClient();

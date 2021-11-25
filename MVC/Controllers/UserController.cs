@@ -31,7 +31,7 @@ namespace MVC.Controllers
             return RedirectToAction();
         }
 
-        [HttpPost]
+        
         public async Task<IActionResult> SignIn(User user)
         {
             var result = await _userService.Authenticate(user);
@@ -56,6 +56,10 @@ namespace MVC.Controllers
                 var claimIndentity = new ClaimsIdentity(userClaims, "Login");
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIndentity));
 
+                if (role == "Restaurant")
+                {
+                    return RedirectToAction("Index", "HomeRestaurant");
+                }
                 return RedirectToAction("Index", "Home");
             }
 

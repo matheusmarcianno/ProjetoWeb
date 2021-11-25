@@ -11,6 +11,8 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Cnpj { get; set; }
         public string PhoneNumber { get; set; }
+        public ICollection<Plate> Plates { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         public Restaurant() { }
 
