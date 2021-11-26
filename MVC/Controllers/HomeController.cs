@@ -4,10 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MVC.Controllers
@@ -38,7 +35,7 @@ namespace MVC.Controllers
         /// <summary>
         /// Método que retorna todos os pratos disponíveis na Home do site.
         /// </summary>
-        public async Task<IActionResult> GetAllPLates( )
+        public async Task<IActionResult> GetAllPLates()
         {
             var plates = await _plateService.GetAllAsync();
             return View(plates);

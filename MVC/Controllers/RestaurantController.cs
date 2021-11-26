@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Threading.Tasks;

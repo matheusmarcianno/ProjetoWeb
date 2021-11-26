@@ -36,8 +36,9 @@ namespace Appication.Services
             var validation =  this.Validate(category);
             if (!validation.IsValid)
             {
-                return ResultFactory.CreateFailureSingleResult(validation);
+                return ResultFactory.CreateFailureSingleResult(category);
             }
+
             await this._dbContext.Set<Category>().AddAsync(category);
             await this._dbContext.SaveChangesAsync();
 

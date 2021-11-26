@@ -23,6 +23,11 @@ namespace MVC.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Método responsável por inserir um novo cliente e um novo usuário ao mesmo tempo no site. 
+        /// Logo após a inserção, o método retorna um novo caminho para "SignIn" -> "UserController",
+        /// possibilitando o Login do usuário.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Register(ClientRegisterModel registerModel)
         {
