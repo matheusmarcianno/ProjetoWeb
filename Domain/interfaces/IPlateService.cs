@@ -1,9 +1,5 @@
 ﻿using Domain.Entities;
 using Shared.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces
@@ -15,6 +11,8 @@ namespace Domain.Interfaces
         Task<SingleResult<Plate>> GetByIdAsync(int id);
         Task<DataResult<Plate>> GetAllAsync();
         Task<Result> DeleteAsync(Plate plate);
+        Task<DataResult<Plate>> Search(string search, int id);
+
 
     }
 }

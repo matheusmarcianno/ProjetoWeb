@@ -5,10 +5,6 @@ using Domain.ValidationModel;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
 using Shared.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Appication.Services
@@ -19,13 +15,13 @@ namespace Appication.Services
 
         public virtual async Task<DataResult<Client>> GetAllAsync()
         {
-            var clients = await this._dbContext.Set<Client>().Include(c => c.Orders).ToListAsync();
+            var clients = await _dbContext.Set<Client>().Include(c => c.Orders).ToListAsync();
             return ResultFactory.CreateSuccessDataResult(clients);
         }
 
         public virtual async Task<SingleResult<Client>> GetByIdAsync(int id)
         {
-            var client = await this._dbContext.Set<Client>().FindAsync(id);
+            var client = await _dbContext.Set<Client>().FindAsync(id);
             return ResultFactory.CreateSuccessSingleResult(client);
         }
 

@@ -5,10 +5,7 @@ using Domain.ValidationModel;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
 using Shared.Results;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Appication.Services
@@ -49,6 +46,12 @@ namespace Appication.Services
             await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(plate);
+        }
+
+        public virtual async Task<DataResult<Plate>> Search(string search, int id)
+        {
+            var plate = await _dbContext.Set<Plate>().Where(p => p.Name == search && p.RestaurantId == id).ToListAsync();
+            return ResultFactory.CreateSuccessDataResult(plate);
         }
 
         public virtual async Task<Result> UpdateAsync(Plate plate)

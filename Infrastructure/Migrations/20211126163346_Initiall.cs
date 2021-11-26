@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Initiall : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,8 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(70)", unicode: false, maxLength: 70, nullable: false),
-                    Cpf = table.Column<string>(type: "nchar(11)", fixedLength: true, maxLength: 11, nullable: false),
+                    Cpf = table.Column<string>(type: "char(11)", unicode: false, fixedLength: true, maxLength: 11, nullable: false),
+                    Cep = table.Column<string>(type: "nchar(8)", fixedLength: true, maxLength: 8, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
                 },
@@ -43,12 +44,39 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(70)", unicode: false, maxLength: 70, nullable: true),
-                    Cnpj = table.Column<string>(type: "nchar(14)", fixedLength: true, maxLength: 14, nullable: false),
+                    Cnpj = table.Column<string>(type: "char(14)", unicode: false, fixedLength: true, maxLength: 14, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Restaurant", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_Restaurant_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,7 +88,8 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "varchar(45)", unicode: false, maxLength: 45, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,24 +100,10 @@ namespace Infrastructure.Migrations
                         principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
+                        name: "FK_Plate_Restaurant_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurant",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -146,9 +161,20 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Client_Cpf",
+                table: "Client",
+                column: "Cpf",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Order_ClientId",
                 table: "Order",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_RestaurantId",
+                table: "Order",
+                column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderPlate_PlatesId",
@@ -159,6 +185,17 @@ namespace Infrastructure.Migrations
                 name: "IX_Plate_CategoryId",
                 table: "Plate",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Plate_RestaurantId",
+                table: "Plate",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Restaurant_Cnpj",
+                table: "Restaurant",
+                column: "Cnpj",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_ClientId",
@@ -192,13 +229,13 @@ namespace Infrastructure.Migrations
                 name: "Plate");
 
             migrationBuilder.DropTable(
-                name: "Restaurant");
-
-            migrationBuilder.DropTable(
                 name: "Client");
 
             migrationBuilder.DropTable(
                 name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "Restaurant");
         }
     }
 }

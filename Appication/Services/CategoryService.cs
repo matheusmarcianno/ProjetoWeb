@@ -3,10 +3,6 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Domain.ValidationModel;
 using Shared.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
@@ -31,8 +27,8 @@ namespace Appication.Services
 
         public async Task<DataResult<Category>> GetPlates(Category category)
         {
-            var platesCategory = await _dbContext.Set<Category>().Include(c => c.Plates).FirstOrDefaultAsync(c => c.Id == category.Id);
-            return ResultFactory.CreateSuccessDataResult(platesCategory);
+            var categoryPlates = await _dbContext.Set<Category>().Include(c => c.Plates).FirstOrDefaultAsync(c => c.Id == category.Id);
+            return ResultFactory.CreateSuccessDataResult(categoryPlates);
         }
 
         public virtual async Task<SingleResult<Category>> InsertAsync(Category category)

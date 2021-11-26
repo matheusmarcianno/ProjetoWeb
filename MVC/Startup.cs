@@ -31,6 +31,8 @@ namespace MVC
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IRestaurantService, RestaurantService>();
+            services.AddTransient<IPlateService, PlateService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
         }
 

@@ -1,9 +1,5 @@
 ﻿using Domain.Entities;
 using Shared.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces
@@ -14,6 +10,8 @@ namespace Domain.Interfaces
         Task<Result> UpdateAsync(Restaurant restaurant);
         Task<SingleResult<Restaurant>> GetByIdAsync(int id);
         Task<DataResult<Restaurant>> GetAllAsync();
+        Task<DataResult<Restaurant>> GetPlates(Restaurant restaurant);
+
     }
 
 }

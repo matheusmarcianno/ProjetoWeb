@@ -14,6 +14,14 @@ namespace MVC.Controllers
             _plateService = plateService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> PlateDetails(Plate plate)
+        {
+            var plateDetails = await _plateService.GetByIdAsync(plate.Id);
+            return View(plate); 
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> RegisterPlate(Plate plate)
         {
@@ -27,12 +35,14 @@ namespace MVC.Controllers
             return View();
         }
 
+        [HttpDelete]
         public async Task<IActionResult> DeleteAsync(Plate plate)
         {
             await _plateService.DeleteAsync(plate);
             return View();
         }
 
+        [HttpPut]
         public async Task<IActionResult> UpdateAsync(Plate plate)
         {
             var result = await _plateService.UpdateAsync(plate);
@@ -43,7 +53,5 @@ namespace MVC.Controllers
             }
             return View(plate);
         }
-
-
     }
 }

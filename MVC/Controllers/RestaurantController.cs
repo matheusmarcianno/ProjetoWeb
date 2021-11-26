@@ -21,7 +21,7 @@ namespace MVC.Controllers
             _plateService = plateService;
         }
 
-        [HttpPost("regiter")]
+        [HttpPost]
         public async Task<IActionResult> Register(RestaurantRegisterModel registerModel)
         {
             var restaurant = registerModel.ConvertToRestaurant();
@@ -41,19 +41,6 @@ namespace MVC.Controllers
             }
 
             return RedirectToAction("SignIn", "User");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(Plate plate)
-        {
-            var result = await _plateService.InsertAsync(plate);
-            if (!result.Success)
-            {
-                ViewBag.Error = result;
-                return View();
-            }
-
-            return View();
         }
     }
 }

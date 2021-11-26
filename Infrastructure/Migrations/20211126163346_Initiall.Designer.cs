@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20211125173046_Initial")]
-    partial class Initial
+    [Migration("20211126163346_Initiall")]
+    partial class Initiall
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,11 +48,17 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nchar(8)")
+                        .IsFixedLength(true);
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .IsUnicode(true)
-                        .HasColumnType("nchar(11)")
+                        .IsUnicode(false)
+                        .HasColumnType("char(11)")
                         .IsFixedLength(true);
 
                     b.Property<string>("Name")
@@ -69,6 +75,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Cpf")
+                        .IsUnique();
+
                     b.ToTable("Client");
                 });
 
@@ -82,12 +91,17 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Order");
                 });
@@ -116,9 +130,14 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Plate");
                 });
@@ -133,8 +152,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Cnpj")
                         .IsRequired()
                         .HasMaxLength(14)
-                        .IsUnicode(true)
-                        .HasColumnType("nchar(14)")
+                        .IsUnicode(false)
+                        .HasColumnType("char(14)")
                         .IsFixedLength(true);
 
                     b.Property<string>("Name")
@@ -145,10 +164,12 @@ namespace Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(13)
-                        .IsUnicode(true)
                         .HasColumnType("nvarchar(13)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Cnpj")
+                        .IsUnique();
 
                     b.ToTable("Restaurant");
                 });
@@ -210,7 +231,15 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Restaurant", "Restaurant")
+                        .WithMany("Orders")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Client");
+
+                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("Domain.Entities.Plate", b =>
@@ -221,7 +250,15 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Restaurant", "Restaurant")
+                        .WithMany("Plates")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -262,6 +299,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Client", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Restaurant", b =>
+                {
+                    b.Navigation("Orders");
+
+                    b.Navigation("Plates");
                 });
 #pragma warning restore 612, 618
         }

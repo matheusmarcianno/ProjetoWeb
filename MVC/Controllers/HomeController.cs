@@ -16,35 +16,45 @@ namespace MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPlateService _plateService;
+        private readonly ICategoryService _categoryService;
 
-        public HomeController(ILogger<HomeController> logger, IPlateService plateService)
+
+        public HomeController(ILogger<HomeController> logger, IPlateService plateService, ICategoryService categoryService)
         {
             _logger = logger;
             _plateService = plateService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
-            { 
+            {
                 return RedirectToAction("GetPlate");
             }
-            else
-                return View("SignIn", "User");
+            return RedirectToAction("SignIn", "User");
         }
 
         public async Task<IActionResult> GetPLates( )
         {
-            await _plateService.GetAllAsync();
-            return View();
+            var plates = await _plateService.GetAllAsync();
+            return View(plates);
         }
 
+        // mostra todas as categorias disponiveis
         public async Task<IActionResult> GetCategories()
         {
-            await _plateService.GetAllAsync();
-            return View();
+            var categories = await _plateService.GetAllAsync();
+            return View(categories);
         }
-        //TODO: implementar um método que vai permitir pegar os pratos da categoria que o usuário selecionar.
+
+        // TODO: Implementar o método que recomendará pratos ao usuário com base em seus últimos pedidos utilizadno a IA
+
+        public async Task<IActionResult> GetCategoryPlates(Category category)
+        {
+            var categoryPlates = await _categoryService.GetPlates(category);
+            return View(categoryPlates);
+        }
 
         public async Task<IActionResult> Logout()
         {

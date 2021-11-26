@@ -5,10 +5,6 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Shared.Factory;
 using Shared.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Appication.Services
@@ -27,6 +23,12 @@ namespace Appication.Services
         {
             var restaurant = await this._dbContext.Set<Restaurant>().FindAsync(id);
             return ResultFactory.CreateSuccessSingleResult(restaurant);
+        }
+
+        public async Task<DataResult<Restaurant>> GetPlates(Restaurant restaurant)
+        {
+            var restaurantPlates = await _dbContext.Set<Restaurant>().Include(r => r.Plates).FirstOrDefaultAsync(r => r.Id == restaurant.Id);
+            return ResultFactory.CreateSuccessDataResult(restaurantPlates);
         }
 
         public virtual async Task<SingleResult<Restaurant>> InsertAsync(Restaurant restaurant)
