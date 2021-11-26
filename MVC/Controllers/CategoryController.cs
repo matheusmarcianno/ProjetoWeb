@@ -14,20 +14,9 @@ namespace MVC.Controllers
             _categoryService = categoryServie;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get(Category category)
-        {
-            var categories = await this._categoryService.GetAllAsync();
-            return View();
-        }
-
-        public async Task<IActionResult> GetPlatesCategory(Category category)
-        {
-            var platesCategory = await _categoryService.GetPlates(category);
-            return View();
-        }
-
-
+        /// <summary>
+        /// Método responsável por inserir uma nova categoria no site.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> InsertCategory(Category category)
         {

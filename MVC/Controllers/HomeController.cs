@@ -35,14 +35,19 @@ namespace MVC.Controllers
             return RedirectToAction("SignIn", "User");
         }
 
-        public async Task<IActionResult> GetPLates( )
+        /// <summary>
+        /// Método que retorna todos os pratos disponíveis na Home do site.
+        /// </summary>
+        public async Task<IActionResult> GetAllPLates( )
         {
             var plates = await _plateService.GetAllAsync();
             return View(plates);
         }
 
-        // mostra todas as categorias disponiveis
-        public async Task<IActionResult> GetCategories()
+        /// <summary>
+        /// Método que retorna todas as categorias na Home do site.
+        /// </summary>
+        public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _plateService.GetAllAsync();
             return View(categories);
@@ -50,6 +55,9 @@ namespace MVC.Controllers
 
         // TODO: Implementar o método que recomendará pratos ao usuário com base em seus últimos pedidos utilizadno a IA
 
+        /// <summary>
+        /// Método que retorna os pratos de uma determinada categoria selecionada pelo usuário.
+        /// </summary>
         public async Task<IActionResult> GetCategoryPlates(Category category)
         {
             var categoryPlates = await _categoryService.GetPlates(category);

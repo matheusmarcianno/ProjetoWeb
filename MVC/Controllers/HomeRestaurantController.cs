@@ -25,6 +25,9 @@ namespace MVC.Controllers
             return RedirectToAction("SignIn", "User");
         }
 
+        /// <summary>
+        /// Método que retorna todos os pratos que o restaurante tem cadastrado.
+        /// </summary>
         public async Task<IActionResult> GetPlatesRestaurant(Restaurant restaurant)
         {
             var restaurantPlates = await _restaurantService.GetPlates(restaurant);

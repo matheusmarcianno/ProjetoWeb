@@ -33,6 +33,11 @@ namespace Appication.Services
 
         public virtual async Task<SingleResult<Category>> InsertAsync(Category category)
         {
+            var validation =  this.Validate(category);
+            if (!validation.IsValid)
+            {
+                return ResultFactory.CreateFailureSingleResult(validation);
+            }
             await this._dbContext.Set<Category>().AddAsync(category);
             await this._dbContext.SaveChangesAsync();
 
