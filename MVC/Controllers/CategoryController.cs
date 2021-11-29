@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MVC.Controllers
@@ -17,6 +18,15 @@ namespace MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var category = this.RegisterCategory(new Category()
+            {
+                Name = "Salgados",
+                Plates = new List<Plate>()
+                {
+                    new Plate(),
+                    new Plate()
+                }
+            });
             return View();
         }
 
