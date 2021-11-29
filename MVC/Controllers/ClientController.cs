@@ -1,12 +1,11 @@
 ﻿using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace MVC.Controllers
 {
-    // Objeto Controller que vai ser resposável por gerenciar a tela de cadastro de clientes,
-    // que deve conter todos os campos presentes no "ClientRegisterModel".
     public class ClientController : Controller
     {
         private readonly IClientService _clientService;
@@ -18,8 +17,19 @@ namespace MVC.Controllers
             this._userService = userService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+            var insertClient     = this.SignUp(new ClientRegisterModel()
+            {
+                Emial = "matheus@gmail.com",
+                Password = "1234",
+                Name = "Matheus V",
+                Cpf = "09679837971",
+                PhoneNumber = "47996886829",
+                BirthDate = DateTime.Now
+            });
+
             return View();
         }
 
@@ -29,7 +39,7 @@ namespace MVC.Controllers
         /// possibilitando o Login do usuário.
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Register(ClientRegisterModel registerModel)
+        public async Task<IActionResult> SignUp(ClientRegisterModel registerModel)
         {
             var client = registerModel.ConvertToClient();
             var user = registerModel.ConvertToUser();
@@ -47,4 +57,9 @@ namespace MVC.Controllers
             return RedirectToAction("SignIn", "User");
         }
     }
+
+    // pegar um prato que o cliente selecionou e adicioná-lo no carrinho
+    // trazer o pedido feito pelo cliente para que o restaurante o venha aceitar ou recusar.
+    // fazer o método que recomenda ao cliente pratos com base nos últimos pedidos que ele fez.
+
 }

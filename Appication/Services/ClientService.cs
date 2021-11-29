@@ -13,6 +13,10 @@ namespace Appication.Services
     {
         private readonly MainContext _dbContext;
 
+        public ClientService(MainContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public virtual async Task<DataResult<Client>> GetAllAsync()
         {
             var clients = await _dbContext.Set<Client>().Include(c => c.Orders).ToListAsync();
@@ -34,7 +38,7 @@ namespace Appication.Services
             }
 
             await this._dbContext.Set<Client>().AddAsync(client);
-            await this._dbContext.SaveChangesAsync();
+            //await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(client);
         }

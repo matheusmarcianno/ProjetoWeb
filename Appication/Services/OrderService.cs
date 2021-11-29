@@ -14,6 +14,11 @@ namespace Appication.Services
     {
         protected readonly MainContext _dbContext;
 
+        public OrderService(MainContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public virtual async Task<DataResult<Order>> GetAllAsync()
         {
             var orders = await this._dbContext.Set<Order>().Include(o => o.Client).ToListAsync();
@@ -59,5 +64,11 @@ namespace Appication.Services
 
             return ResultFactory.CreateSuccessResult();
         }
+
+
+        //public Result GetDetailsOrder(Order order)
+        //{
+        //    var orderDetails = _dbContext.Set<Order>().FindAsync(order.Id);
+        //}
     }
 }

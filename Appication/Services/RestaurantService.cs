@@ -13,6 +13,11 @@ namespace Appication.Services
     {
         protected readonly MainContext _dbContext;
 
+        public RestaurantService(MainContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public virtual async Task<DataResult<Restaurant>> GetAllAsync()
         {
             var restaurants =  await this._dbContext.Set<Restaurant>().ToListAsync();
@@ -40,7 +45,7 @@ namespace Appication.Services
             }
 
             await this._dbContext.Set<Restaurant>().AddAsync(restaurant);
-            await this._dbContext.SaveChangesAsync();
+            //await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(restaurant);
         }

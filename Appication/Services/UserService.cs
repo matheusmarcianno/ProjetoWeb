@@ -13,13 +13,18 @@ namespace Appication.Services
     {
         protected readonly MainContext _dbContext;
 
+        public UserService(MainContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public virtual async Task<SingleResult<User>> Authenticate(User user)
         {
             var result = this.Validate(user);
             if (!result.IsValid)
                 return ResultFactory.CreateFailureSingleResult<User>();
 
-            var userAuthenticate = await this._dbContext.Set<User>()
+            var userAuthenticate = await _dbContext.Set<User>()
                 .Include(u => u.Client)
                 .Include(u => u.Restaurant)
                 .AsNoTracking()
@@ -33,13 +38,13 @@ namespace Appication.Services
 
         public virtual async Task<DataResult<User>> GetAllAsync()
         {
-            var users = await this._dbContext.Set<User>().ToListAsync();
+            var users = await _dbContext.Set<User>().ToListAsync();
             return ResultFactory.CreateSuccessDataResult(users);
         }
 
         public virtual async Task<SingleResult<User>> GetByEmail(string email)
         {
-            var user = await this._dbContext.Set<User>()
+            var user = await _dbContext.Set<User>()
                 .Include(u => u.Client)
                 .Include(u => u.Restaurant)
                 .AsNoTracking()
@@ -52,7 +57,7 @@ namespace Appication.Services
 
         public virtual async Task<SingleResult<User>> GetByIdAsync(int id)
         {
-            var user = await this._dbContext.Set<User>().FindAsync(id);
+            var user = await _dbContext.Set<User>().FindAsync(id);
             return ResultFactory.CreateSuccessSingleResult(user);
         }
 
@@ -65,16 +70,16 @@ namespace Appication.Services
                 return ResultFactory.CreateSuccessSingleResult(user);
             }
 
-            await this._dbContext.Set<User>().AddAsync(user);
-            await this._dbContext.SaveChangesAsync();
+            await _dbContext.Set<User>().AddAsync(user);
+            //await _dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(user);
         }
 
         public virtual async Task<Result> UpdateAsync(User user)
         {
-            this._dbContext.Set<User>().Update(user);
-            await this._dbContext.SaveChangesAsync();
+            _dbContext.Set<User>().Update(user);
+            await _dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessResult();
         }

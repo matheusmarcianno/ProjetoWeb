@@ -7,11 +7,22 @@ namespace Infrastructure.Context
 {
     public class MainContext : DbContext
     {
-        protected DbSet<User> Users; 
-        protected DbSet<Client> Client; 
-        protected DbSet<Order> Orders; 
-        protected DbSet<Plate> Plate;
-        protected DbSet<Restaurant> Restaurant;
+        DbSet<User> Users; 
+        DbSet<Client> Client; 
+        DbSet<Order> Orders; 
+        DbSet<Plate> Plates;
+        DbSet<Restaurant> Restaurants;
+        DbSet<Category> Categories;
+
+        //public MainContext(DbSet<User> users, DbSet<Client> clients, DbSet<Order> orders, DbSet<Plate> plates, DbSet<Restaurant> restaurants, DbSet<Category> categories)
+        //{
+        //    Users = users;
+        //    Client = clients;
+        //    Orders = orders;
+        //    Plates = plates;
+        //    Restaurants = restaurants;
+        //    Categories = categories;
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

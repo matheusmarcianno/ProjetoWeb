@@ -14,6 +14,10 @@ namespace Appication.Services
     {
         protected readonly MainContext _dbContext;
 
+        public PlateService(MainContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public virtual async Task<Result> DeleteAsync(Plate plate)
         {
             this._dbContext.Set<Plate>().Remove(plate);
@@ -31,7 +35,7 @@ namespace Appication.Services
         public virtual async Task<SingleResult<Plate>> GetByIdAsync(int id)
         {
             var plate = await this._dbContext.Set<Plate>().FindAsync(id);
-            return ResultFactory.CreateSuccessSingleResult(plate); 
+            return ResultFactory.CreateSuccessSingleResult(plate);
         }
 
         public virtual async Task<SingleResult<Plate>> InsertAsync(Plate plate)
@@ -50,8 +54,22 @@ namespace Appication.Services
 
         public virtual async Task<DataResult<Plate>> Search(string search, int id)
         {
-            var plate = await _dbContext.Set<Plate>().Where(p => p.Name == search && p.RestaurantId == id).ToListAsync();
-            return ResultFactory.CreateSuccessDataResult(plate);
+            var searchResult = await _dbContext.Set<Plate>().Where(p => p.Name == search && p.RestaurantId == id).ToListAsync();
+
+            if (searchResult == null)
+                return ResultFactory.CreateFailureDataResult<Plate>();
+
+            return ResultFactory.CreateSuccessDataResult(searchResult);
+        }
+
+        public virtual async Task<DataResult<Plate>> Search(string search)
+        {
+            var searchResult = await _dbContext.Set<Plate>().Where(p => p.Name == search).ToListAsync();
+
+            if (searchResult == null)
+                return ResultFactory.CreateFailureDataResult<Plate>();
+
+            return ResultFactory.CreateSuccessDataResult(searchResult);
         }
 
         public virtual async Task<Result> UpdateAsync(Plate plate)

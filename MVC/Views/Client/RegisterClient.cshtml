@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Cadastrar";
+}
+<form method="post" style="width: 100%;">
+    <div class="margin-b-40" style="margin-top: 10%; width: 40%; margin-left: 30%;">
+        <h1>Cadastro</h1>
+        <input type="text" class="form-control form-input" name="email" placeholder="Email" required />
+        <input type="password" class="form-control form-input" name="password" placeholder="Senha" required />
+        <input type="text" class="form-control form-input" name="phoneNumber" placeholder="Telefone" required />
+            <input type="text" class="form-control form-input" name="name" placeholder="Nome Completo" required />
+        <input type="text" class="form-control form-input" name="cpf" placeholder="CPF" required />
+        <div style="width: 100%; display: flex;">
+            <input type="text" class="form-control form-input half-1" name="cep" placeholder="CEP" required />
+            <input type="date" class="form-control form-date half-2" name="birthdate" placeholder="Data Nascimento" required />
+        </div>
+        <p class="margin-topbottom-15">Já possui uma conta? <a asp-controller="signin" asp-action="index">Entre aqui</a></p>
+        <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase form-button">Cadastrar</button>
+
+    </div>
+</form>

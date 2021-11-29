@@ -14,11 +14,17 @@ namespace MVC.Controllers
             _categoryService = categoryServie;
         }
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         /// <summary>
         /// Método responsável por inserir uma nova categoria no site.
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> InsertCategory(Category category)
+        public async Task<IActionResult> RegisterCategory(Category category)
         {
             var result = await _categoryService.InsertAsync(category);
             if (!result.Success)

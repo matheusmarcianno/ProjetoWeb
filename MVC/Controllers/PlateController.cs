@@ -15,11 +15,16 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> PlateDetails(Plate plate)
         {
             var plateDetails = await _plateService.GetByIdAsync(plate.Id);
             return View(plate); 
-
         }
 
         [HttpPost]
@@ -36,14 +41,14 @@ namespace MVC.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(Plate plate)
+        public async Task<IActionResult> DeletePlate(Plate plate)
         {
             await _plateService.DeleteAsync(plate);
             return View();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(Plate plate)
+        public async Task<IActionResult> EditPlate(Plate plate)
         {
             var result = await _plateService.UpdateAsync(plate);
             if (!result.Success)

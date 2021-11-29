@@ -13,6 +13,11 @@ namespace Appication.Services
     {
         protected readonly MainContext _dbContext;
 
+        public CategoryService(MainContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public virtual async Task<DataResult<Category>> GetAllAsync()
         {
             var categories = await _dbContext.Set<Category>().Include(c => c.Plates).ToListAsync();

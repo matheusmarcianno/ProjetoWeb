@@ -20,15 +20,31 @@ namespace MVC.Controllers
             _plateService = plateService;
         }
 
+        public IActionResult Index()
+        {
+            var insertRestaurant = this.SignUp(new RestaurantRegisterModel()
+            {
+                Email = "restaurant@gmail.com",
+                Password = "1234",
+                Name = "KiBatata",
+                Cnpj = "39.802.725/0001-39",
+                PhoneNumber = "47984001490"
+            });
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Register(RestaurantRegisterModel registerModel)
+        public async Task<IActionResult> SignUp(RestaurantRegisterModel registerModel)
         {
             var restaurant = registerModel.ConvertToRestaurant();
             var user = registerModel.ConvertToUser();
 
             var restaurantResult = await this._restaurantService.InsertAsync(restaurant);
             if (!restaurantResult.Success)
-                return ViewBag.Error = restaurantResult;
+            {
+                ViewBag.Error = restaurantResult;
+                return View();
+            }
 
             user.SetRestaurant(restaurantResult.Value.Id);
 

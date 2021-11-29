@@ -12,6 +12,7 @@ namespace Domain.Interfaces
         Task<DataResult<Plate>> GetAllAsync();
         Task<Result> DeleteAsync(Plate plate);
         Task<DataResult<Plate>> Search(string search, int id);
+        Task<DataResult<Plate>> Search(string search);
 
 
     }

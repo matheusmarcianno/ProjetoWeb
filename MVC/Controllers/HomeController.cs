@@ -23,19 +23,20 @@ namespace MVC.Controllers
             _categoryService = categoryService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("GetPlate");
+                return RedirectToAction("SignIn", "User");
             }
-            return RedirectToAction("SignIn", "User");
+            return RedirectToAction("Plates");
         }
 
         /// <summary>
         /// Método que retorna todos os pratos disponíveis na Home do site.
         /// </summary>
-        public async Task<IActionResult> GetAllPLates()
+        public async Task<IActionResult> Plates()
         {
             var plates = await _plateService.GetAllAsync();
             return View(plates);
@@ -44,10 +45,16 @@ namespace MVC.Controllers
         /// <summary>
         /// Método que retorna todas as categorias na Home do site.
         /// </summary>
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> Categories()
         {
             var categories = await _plateService.GetAllAsync();
             return View(categories);
+        }
+
+        public async Task<IActionResult> Search(string search)
+        {
+            var searchResult = await _plateService.Search(search);
+            return View(searchResult);
         }
 
         // TODO: Implementar o método que recomendará pratos ao usuário com base em seus últimos pedidos utilizadno a IA
@@ -55,7 +62,7 @@ namespace MVC.Controllers
         /// <summary>
         /// Método que retorna os pratos de uma determinada categoria selecionada pelo usuário.
         /// </summary>
-        public async Task<IActionResult> GetCategoryPlates(Category category)
+        public async Task<IActionResult> CategoryPlates(Category category)
         {
             var categoryPlates = await _categoryService.GetPlates(category);
             return View(categoryPlates);
