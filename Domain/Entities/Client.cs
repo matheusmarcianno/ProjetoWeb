@@ -14,12 +14,13 @@ namespace Domain.Entities
 
         public Client() { }
 
-        public Client(string name, string cpf, string phoneNumber, DateTime birthDate)
+        public Client(string name, string cpf, string phoneNumber, DateTime birthDate, string cep)
         {
             this.Name = name;
             this.Cpf = cpf;
             this.PhoneNumber = phoneNumber;
             this.BirthDate = birthDate;
+            this.Cep = cep;
         }
     }
 }

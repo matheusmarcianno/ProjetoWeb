@@ -38,7 +38,7 @@ namespace Appication.Services
             }
 
             await this._dbContext.Set<Client>().AddAsync(client);
-            //await this._dbContext.SaveChangesAsync();
+            await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(client);
         }

@@ -45,7 +45,7 @@ namespace Appication.Services
             }
 
             await this._dbContext.Set<Category>().AddAsync(category);
-            //await this._dbContext.SaveChangesAsync();
+            await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(category);
         }

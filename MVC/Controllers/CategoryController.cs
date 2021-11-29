@@ -16,17 +16,8 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var category = this.RegisterCategory(new Category()
-            {
-                Name = "Salgados",
-                Plates = new List<Plate>()
-                {
-                    new Plate(),
-                    new Plate()
-                }
-            });
             return View();
         }
 

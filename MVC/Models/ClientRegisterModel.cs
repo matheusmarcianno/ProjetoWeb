@@ -9,12 +9,13 @@ namespace MVC.Models
         public string Password { get; set; }   
         public string Name { get; set; }   
         public string Cpf { get; set; }   
+        public string Cep { get; set; }
         public string PhoneNumber { get; set; }   
         public DateTime BirthDate { get; set; }
 
         public Client ConvertToClient()
         {
-            return new Client(this.Name, this.Cpf, this.PhoneNumber, this.BirthDate);
+            return new Client(this.Name, this.Cpf, this.PhoneNumber, this.BirthDate, this.Cep);
         }
 
         public User ConvertToUser()

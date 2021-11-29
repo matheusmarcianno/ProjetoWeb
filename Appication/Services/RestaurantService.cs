@@ -45,7 +45,7 @@ namespace Appication.Services
             }
 
             await this._dbContext.Set<Restaurant>().AddAsync(restaurant);
-            //await this._dbContext.SaveChangesAsync();
+            await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(restaurant);
         }

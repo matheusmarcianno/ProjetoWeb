@@ -18,14 +18,15 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var insertClient     = this.SignUp(new ClientRegisterModel()
+            var insertClient = await this.SignUp(new ClientRegisterModel()
             {
                 Emial = "matheus@gmail.com",
                 Password = "1234",
                 Name = "Matheus V",
                 Cpf = "09679837971",
+                Cep = "89037700",
                 PhoneNumber = "47996886829",
                 BirthDate = DateTime.Now
             });

@@ -64,11 +64,5 @@ namespace Appication.Services
 
             return ResultFactory.CreateSuccessResult();
         }
-
-
-        //public Result GetDetailsOrder(Order order)
-        //{
-        //    var orderDetails = _dbContext.Set<Order>().FindAsync(order.Id);
-        //}
     }
 }
