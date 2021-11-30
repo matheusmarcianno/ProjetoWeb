@@ -15,15 +15,16 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public async IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //var insertPlate = await this.RegisterPlate(new Plate()
-            //{
-            //     Name = "Coxinha",
-            //     Description = "Coxinha de 200 gramas recheada com frago e requeijão",
-            //     Price = 
-            //})
-
+            var insertPlate = await this.RegisterPlate(new Plate()
+            {
+                Name = "30 peças de sushi",
+                Description = "10 urumakes filadélfia, 10 uruamakes kani e 10 urumake califórnia",
+                Price = 55.90,
+                CategoryId = 2,
+                RestaurantId = 3
+            });
 
             return View();
         }

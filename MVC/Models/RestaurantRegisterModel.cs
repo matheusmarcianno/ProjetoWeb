@@ -12,7 +12,7 @@ namespace MVC.Models
 
         public Restaurant ConvertToRestaurant()
         {
-            return new Restaurant(this.Name, this.Cnpj, this.Password);
+            return new Restaurant(this.Name, this.Cnpj, this.PhoneNumber);
         }
 
         public User ConvertToUser()

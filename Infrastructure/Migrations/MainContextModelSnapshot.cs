@@ -125,8 +125,8 @@ namespace Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(45)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");

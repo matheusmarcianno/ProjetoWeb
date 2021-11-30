@@ -24,13 +24,19 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (!User.Identity.IsAuthenticated)
+            var categoryPlates = await this.CategoryPlates(new Category()
             {
-                return RedirectToAction("SignIn", "User");
-            }
-            return RedirectToAction("Plates");
+                Id = 2,
+                Name = "Japonesa"
+            });
+            return View();
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("SignIn", "User");
+            //}
+            //return RedirectToAction("Plates");
         }
 
         /// <summary>
@@ -47,7 +53,7 @@ namespace MVC.Controllers
         /// </summary>
         public async Task<IActionResult> Categories()
         {
-            var categories = await _plateService.GetAllAsync();
+            var categories = await _categoryService.GetAllAsync();
             return View(categories);
         }
 

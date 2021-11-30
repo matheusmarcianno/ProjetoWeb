@@ -21,8 +21,8 @@ namespace MVC.Controllers
         {
             var insertOrder = await this.RegisterOrder(new Order()
             {
-                ClientId = 4,
-                RestaurantId = 2,
+                ClientId = 1,
+                RestaurantId = 3,
                 Plates = new List<Plate>() 
                 {
                     new Plate()
@@ -42,7 +42,8 @@ namespace MVC.Controllers
                 }, 
                 Status = Status.Finalizado,
             }, 
-            new List<Plate>(){ new Plate(), new Plate()}, 4);
+            new List<Plate>(){ new Plate()
+            , new Plate()}, 4);
 
             return View();
         }

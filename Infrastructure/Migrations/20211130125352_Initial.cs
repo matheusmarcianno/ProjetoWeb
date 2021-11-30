@@ -87,7 +87,7 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(45)", unicode: false, maxLength: 45, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },

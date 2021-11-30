@@ -18,9 +18,9 @@ namespace MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var insertCategory = this.RegisterCategory(new Category()
+            var insertCategory = await this.RegisterCategory(new Category()
             {
-                Name = "Salgados"
+                Name = "Japonesa"
             });
 
             return View();

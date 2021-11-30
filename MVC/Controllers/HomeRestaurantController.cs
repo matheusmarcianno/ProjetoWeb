@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MVC.Controllers
@@ -17,14 +18,13 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("SignIn", "User");
             }
             return RedirectToAction("Plates, HomeRestaurant");
-
         }
 
         /// <summary>
@@ -36,6 +36,9 @@ namespace MVC.Controllers
             return View(restaurantPlates);
         }
 
+        /// <summary>
+        /// Método responsável por buscar por um prato que o restaurante já tem cadastrado
+        /// </summary>
         public async Task<IActionResult> Search(string search, Restaurant restaurant)
         {
             var plate = await _plateService.Search(search, restaurant.Id);

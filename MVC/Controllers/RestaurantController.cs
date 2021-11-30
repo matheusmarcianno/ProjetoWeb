@@ -24,11 +24,11 @@ namespace MVC.Controllers
         {
             var insertRestaurant = await this.SignUp(new RestaurantRegisterModel()
             {
-                Email = "restaurant@gmail.com",
-                Password = "1234",
-                Name = "KiBatata",
-                Cnpj = "39802725000139",
-                PhoneNumber = "47984001490"
+                Email = "restaurantsushi@gmail.com",
+                Password = "4321",
+                Name = "Sushi Blumenau",
+                Cnpj = "76903023000178",
+                PhoneNumber = "479999389999"
             });
             return View();
         }
