@@ -52,6 +52,20 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(order);
         }
 
+        //public virtual async Task<SingleResult<Order>> InsertAsync(Order order)
+        //{
+        //    var validation = this.Validate(order);
+        //    if (!validation.IsValid)
+        //    {
+        //        return ResultFactory.CreateFailureSingleResult(order);
+        //    }
+
+        //    await this._dbContext.Set<Order>().AddAsync(order);
+        //    await this._dbContext.SaveChangesAsync();
+
+        //    return ResultFactory.CreateSuccessSingleResult(order);
+        //}
+
         public virtual async Task<Result> UpdateAsync(Order order, List<Plate> plates)
         {
             foreach(var plate in plates)

@@ -2,6 +2,7 @@
 using Domain.Enum;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,31 +20,43 @@ namespace MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var insertOrder = await this.RegisterOrder(new Order()
+
+            try
             {
-                ClientId = 1,
-                RestaurantId = 3,
-                Plates = new List<Plate>() 
+                var insertOrder = await this.RegisterOrder(new Order()
                 {
-                    new Plate()
+                    ClientId = 1,
+                    RestaurantId = 3,
+                    Plates = new List<Plate>()
                     {
-                         CategoryId = 2,
-                         Name = "Macarrão",
-                         Description = "Macarrão alho e óleo com molho branco",
-                         Price = 18,
-                    }, 
-                    new Plate()
-                    {
-                         CategoryId = 1,
-                         Name = "Coxinha",
-                         Description = "Coxinha de frango de 200 gramas",
-                         Price = 7,
+                        new Plate()
+                        {
+                            CategoryId = 1,
+                            Name = "Coxinha",
+                            Description = "Coxinha de 200 gramas recheada com frago e requeijão",
+                            Price = 8.5,
+                            RestaurantId = 2
+                        },
+                        new Plate()
+                        {
+                            CategoryId = 2,
+                            Name = "Combo de sushi",
+                            Description = "30 peças de sushi sendo 10 urumakes filadélfia, 10 uruamakes kani e 10 urumake califórnia",
+                            Price = 50,
+                            RestaurantId = 3
+                        },
                     },
+                    Status = Status.Finalizado,
                 }, 
-                Status = Status.Finalizado,
-            }, 
-            new List<Plate>(){ new Plate()
-            , new Plate()}, 4);
+                new List<Plate>() { new Plate(), new Plate()}, 
+                1);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            //var orders = await this.Orders();
 
             return View();
         }
@@ -51,13 +64,19 @@ namespace MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterOrder(Order order, List<Plate> plates, int clientId)
         {
-                var result = await this._orderService.InsertAsync(order, plates, clientId);
+            var result = await this._orderService.InsertAsync(order, plates, clientId);
             if (!result.Success)
             {
                 return ViewBag.Errors = result;
             }
 
             return View(result);
+        }
+
+        public async Task<IActionResult> Orders()
+        {
+            var orders = await this._orderService.GetAllAsync();
+            return View(orders);
         }
     }
 }

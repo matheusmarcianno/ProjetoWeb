@@ -26,17 +26,18 @@ namespace MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var categoryPlates = await this.CategoryPlates(new Category()
-            {
-                Id = 2,
-                Name = "Japonesa"
-            });
-            return View();
-            //if (!User.Identity.IsAuthenticated)
+            //var categoryPlates = await this.CategoryPlates(new Category()
             //{
-            //    return RedirectToAction("SignIn", "User");
-            //}
-            //return RedirectToAction("Plates");
+            //    Id = 2,
+            //    Name = "Japonesa"
+            //});
+            //return View();
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "User");
+            }
+            return RedirectToAction("Plates");
         }
 
         /// <summary>

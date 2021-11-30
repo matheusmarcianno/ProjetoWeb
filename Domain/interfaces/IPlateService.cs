@@ -13,6 +13,7 @@ namespace Domain.Interfaces
         Task<Result> DeleteAsync(Plate plate);
         Task<DataResult<Plate>> Search(string search, int id);
         Task<DataResult<Plate>> Search(string search);
+        Task<DataResult<Plate>> GetPlates(Restaurant restaurant);
 
 
     }

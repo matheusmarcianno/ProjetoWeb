@@ -20,16 +20,16 @@ namespace MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var insertClient = await this.SignUp(new ClientRegisterModel()
-            {
-                Emial = "matheus@gmail.com",
-                Password = "1234",
-                Name = "Matheus Vitório Marciano",
-                Cep = "89037700",
-                Cpf = "09679837971",
-                PhoneNumber = "47996886829",
-                BirthDate = DateTime.Now
-            });
+            //var insertClient = await this.SignUp(new ClientRegisterModel()
+            //{
+            //    Emial = "matheus@gmail.com",
+            //    Password = "1234",
+            //    Name = "Matheus Vitório Marciano",
+            //    Cep = "89037700",
+            //    Cpf = "09679837971",
+            //    PhoneNumber = "47996886829",
+            //    BirthDate = DateTime.Now
+            //});
 
             return View();
         }

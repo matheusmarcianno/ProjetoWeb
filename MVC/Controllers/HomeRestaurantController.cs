@@ -20,6 +20,22 @@ namespace MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            //var restaurantPlates = await this.Plates(new Restaurant()
+            //{
+            //    Id = 3,
+            //    Name = "Sushi Blumenau",
+            //    Cnpj = "76903023000178",
+            //    PhoneNumber = "479999389999"
+            //});
+
+            //var searchPlate = await this.Search("Coxinha", new Restaurant()
+            //{
+            //    Id = 2,
+            //    Name = "KiBatata",
+            //    Cnpj = "39802725000139",
+            //    PhoneNumber = "47984001490"
+            //});
+
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("SignIn", "User");
@@ -32,7 +48,7 @@ namespace MVC.Controllers
         /// </summary>
         public async Task<IActionResult> Plates(Restaurant restaurant)
         {
-            var restaurantPlates = await _restaurantService.GetPlates(restaurant);
+            var restaurantPlates = await _plateService.GetPlates(restaurant);
             return View(restaurantPlates);
         }
 

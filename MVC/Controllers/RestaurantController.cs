@@ -22,14 +22,14 @@ namespace MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var insertRestaurant = await this.SignUp(new RestaurantRegisterModel()
-            {
-                Email = "restaurantsushi@gmail.com",
-                Password = "4321",
-                Name = "Sushi Blumenau",
-                Cnpj = "76903023000178",
-                PhoneNumber = "479999389999"
-            });
+            //var insertRestaurant = await this.SignUp(new RestaurantRegisterModel()
+            // {
+            //     Email = "restaurantsushi@gmail.com",
+            //     Password = "4321",
+            //     Name = "Sushi Blumenau",
+            //     Cnpj = "76903023000178",
+            //     PhoneNumber = "479999389999"
+            // });
             return View();
         }
 

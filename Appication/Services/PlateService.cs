@@ -72,9 +72,15 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessDataResult(searchResult);
         }
 
+        public async Task<DataResult<Plate>> GetPlates(Restaurant restaurant)
+        {
+            var restaurantPlates = await _dbContext.Set<Plate>().Where(p => p.RestaurantId == restaurant.Id).ToListAsync();
+            return ResultFactory.CreateSuccessDataResult(restaurantPlates);
+        }
+
         public virtual async Task<Result> UpdateAsync(Plate plate)
         {
-            var r = this._dbContext.Set<Plate>().Update(plate);
+            this._dbContext.Set<Plate>().Update(plate);
             await this._dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessResult();
