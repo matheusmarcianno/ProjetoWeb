@@ -20,14 +20,14 @@ namespace MVC.Controllers
             _plateService = plateService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var insertRestaurant = this.SignUp(new RestaurantRegisterModel()
+            var insertRestaurant = await this.SignUp(new RestaurantRegisterModel()
             {
                 Email = "restaurant@gmail.com",
                 Password = "1234",
                 Name = "KiBatata",
-                Cnpj = "39.802.725/0001-39",
+                Cnpj = "39802725000139",
                 PhoneNumber = "47984001490"
             });
             return View();

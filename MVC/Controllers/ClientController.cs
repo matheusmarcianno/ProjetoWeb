@@ -24,9 +24,9 @@ namespace MVC.Controllers
             {
                 Emial = "matheus@gmail.com",
                 Password = "1234",
-                Name = "Matheus V",
-                Cpf = "09679837971",
+                Name = "Matheus Vitório Marciano",
                 Cep = "89037700",
+                Cpf = "09679837971",
                 PhoneNumber = "47996886829",
                 BirthDate = DateTime.Now
             });
@@ -58,9 +58,4 @@ namespace MVC.Controllers
             return RedirectToAction("SignIn", "User");
         }
     }
-
-    // pegar um prato que o cliente selecionou e adicioná-lo no carrinho
-    // trazer o pedido feito pelo cliente para que o restaurante o venha aceitar ou recusar.
-    // fazer o método que recomenda ao cliente pratos com base nos últimos pedidos que ele fez.
-
 }

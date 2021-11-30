@@ -70,13 +70,13 @@ namespace Infrastructure.Migrations
                         column: x => x.ClientId,
                         principalTable: "Client",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Order_Restaurant_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurant",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,13 +99,13 @@ namespace Infrastructure.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Plate_Restaurant_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurant",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

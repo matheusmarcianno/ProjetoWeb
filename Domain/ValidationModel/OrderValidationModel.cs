@@ -8,7 +8,6 @@ namespace Domain.ValidationModel
         public OrderValidationModel()
         {
             RuleFor(o => o.OrdertDate).NotEmpty();
-            RuleFor(o => o.Status).NotEmpty();
             RuleFor(o => o.Client).SetValidator(new ClientValidationModel());
             RuleFor(o => o.Restaurant).SetValidator(new RestaurantValidationModel());
         }

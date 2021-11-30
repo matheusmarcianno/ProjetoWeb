@@ -15,8 +15,16 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async IActionResult Index()
         {
+            //var insertPlate = await this.RegisterPlate(new Plate()
+            //{
+            //     Name = "Coxinha",
+            //     Description = "Coxinha de 200 gramas recheada com frago e requeijão",
+            //     Price = 
+            //})
+
+
             return View();
         }
 
