@@ -39,10 +39,9 @@ namespace Appication.Services
         public virtual async Task<SingleResult<Restaurant>> InsertAsync(Restaurant restaurant)
         {
             var validation = this.Validate(restaurant);
+
             if (!validation.IsValid)
-            {
                 return ResultFactory.CreateFailureSingleResult(restaurant);
-            }
 
             await this._dbContext.Set<Restaurant>().AddAsync(restaurant);
             await this._dbContext.SaveChangesAsync();

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MVC
 {
@@ -33,6 +34,7 @@ namespace MVC
             services.AddTransient<IRestaurantService, RestaurantService>();
             services.AddTransient<IPlateService, PlateService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(u => { u.LoginPath = "/SignIn"; });
 
         }
 

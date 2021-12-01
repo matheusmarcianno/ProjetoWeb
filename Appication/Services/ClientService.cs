@@ -33,9 +33,7 @@ namespace Appication.Services
         {
             var validation = this.Validate(client);
             if (!validation.IsValid)
-            {
                 return ResultFactory.CreateFailureSingleResult(client);
-            }
 
             await this._dbContext.Set<Client>().AddAsync(client);
             await this._dbContext.SaveChangesAsync();

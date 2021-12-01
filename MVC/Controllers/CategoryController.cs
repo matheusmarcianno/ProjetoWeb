@@ -20,7 +20,7 @@ namespace MVC.Controllers
         {
             //var insertCategory = await this.RegisterCategory(new Category()
             //{
-            //    Name = "Japonesa"
+            //    Name = "Salgado"
             //});
             return View();
         }

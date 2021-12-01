@@ -49,6 +49,7 @@ namespace Appication.Services
                 .Include(u => u.Restaurant)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
+
             if (user == null)
                 return ResultFactory.CreateFailureSingleResult<User>();
 
@@ -66,12 +67,10 @@ namespace Appication.Services
             var validation = this.Validate(user);
 
             if (!validation.IsValid)
-            {
                 return ResultFactory.CreateSuccessSingleResult(user);
-            }
 
             await _dbContext.Set<User>().AddAsync(user);
-            //await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             return ResultFactory.CreateSuccessSingleResult(user);
         }

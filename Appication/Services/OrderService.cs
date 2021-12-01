@@ -31,7 +31,7 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(order);
         }
 
-        public virtual async Task<SingleResult<Order>> InsertAsync(Order order, List<Plate> plates, int clientId)
+        public virtual async Task<SingleResult<Order>> InsertAsync(Order order)
         {
             var validation = this.Validate(order);
             if (!validation.IsValid)
@@ -39,9 +39,7 @@ namespace Appication.Services
                 return ResultFactory.CreateFailureSingleResult(order);
             }
 
-            order.ClientId = clientId;
-
-            foreach (var plate in plates)
+            foreach (var plate in order.Plates)
             {
                 order.Plates.Add(plate);
             }
@@ -52,23 +50,9 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(order);
         }
 
-        public virtual async Task<SingleResult<Order>> InsertAsync(Order order)
+        public virtual async Task<Result> UpdateAsync(Order order)
         {
-            var validation = this.Validate(order);
-            if (!validation.IsValid)
-            {
-                return ResultFactory.CreateFailureSingleResult(order);
-            }
-
-            await this._dbContext.Set<Order>().AddAsync(order);
-            await this._dbContext.SaveChangesAsync();
-
-            return ResultFactory.CreateSuccessSingleResult(order);
-        }
-
-        public virtual async Task<Result> UpdateAsync(Order order, List<Plate> plates)
-        {
-            foreach(var plate in plates)
+            foreach(var plate in order.Plates)
             {
                 order.Plates.Add(plate);
             }

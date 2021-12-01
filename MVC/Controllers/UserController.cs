@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System;
 
 namespace MVC.Controllers
 {
@@ -22,13 +23,20 @@ namespace MVC.Controllers
         {
             //var users =  await this.User(2);
 
-            var login = await this.SignIn(new User()
+            try
             {
-                Email = "teste@gmail.com",
-                Password = "0102",
-            });
+                var login = await this.SignIn(new User()
+                {
+                    Email = "matheus@gmail.com",
+                    Password = "1234",
+                });
+            }
+            catch (Exception ex)
+            {
+                return ViewBag.Error = ex;
+            }
 
-            return View(login);
+            return View();
         }
 
         [HttpGet]
