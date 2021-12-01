@@ -8,7 +8,7 @@ namespace Infrastructure.Mappings
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.Property(c => c.Name).IsRequired().HasMaxLength(50);
+            builder.Property(c => c.).IsRequired().HasMaxLength(50);
             builder.HasMany(c => c.Plates).WithOne(p => p.Category);
         }
     }

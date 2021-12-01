@@ -50,6 +50,10 @@ namespace Appication.Services
 
         public virtual async Task<Result> UpdateAsync(Category category)
         {
+            var validation = this.Validate(category);
+            if (!validation.IsValid)
+                return ResultFactory.CreateSuccessResult();
+
             this._dbContext.Set<Category>().Update(category);
             await this._dbContext.SaveChangesAsync();
 

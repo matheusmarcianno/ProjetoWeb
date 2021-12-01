@@ -40,5 +40,15 @@ namespace MVC.Controllers
 
             return View();
         }
+
+        public async Task<IActionResult> EditCategory(Category category)
+        {
+            var result = await _categoryService.UpdateAsync(category);
+            if (!result.Success)
+                ViewBag.Error = result; 
+                return View();
+
+            return View();
+        }
     }
 }

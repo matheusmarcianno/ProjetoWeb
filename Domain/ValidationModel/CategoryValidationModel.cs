@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Extensions;
 using FluentValidation;
 
 namespace Domain.ValidationModel
@@ -7,7 +8,7 @@ namespace Domain.ValidationModel
     {
         public CategoryValidationModel()
         {
-            RuleFor(c => c.Name).NotEmpty().MinimumLength(3).MaximumLength(50);
+            RuleFor(c => c.Name).NotEmpty().Length(3, 50);
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace Domain.Extensions
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Threading;
+
+namespace Domain.Extensions
 {
     public static class StringExtension
     {
