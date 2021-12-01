@@ -38,7 +38,7 @@ namespace Appication.Services
 
         public virtual async Task<SingleResult<Category>> InsertAsync(Category category)
         {
-            var validation =  this.Validate(category);
+            var validation = this.Validate(category);
             if (!validation.IsValid)
             {
                 return ResultFactory.CreateFailureSingleResult(category);

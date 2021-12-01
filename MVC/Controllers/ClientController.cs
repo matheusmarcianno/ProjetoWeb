@@ -22,12 +22,12 @@ namespace MVC.Controllers
         {
             //var insertClient = await this.SignUp(new ClientRegisterModel()
             //{
-            //    Emial = "matheus@gmail.com",
-            //    Password = "1234",
-            //    Name = "Matheus Vitório Marciano",
+            //    Emial = "teste@gmail.com",
+            //    Password = "0102",
+            //    Name = "Teste teste",
             //    Cep = "89037700",
-            //    Cpf = "09679837971",
-            //    PhoneNumber = "47996886829",
+            //    Cpf = "68176577090",
+            //    PhoneNumber = "47999999999",
             //    BirthDate = DateTime.Now
             //});
 

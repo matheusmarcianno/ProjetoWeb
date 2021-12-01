@@ -18,9 +18,17 @@ namespace MVC.Controllers
             this._userService = userService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //var users =  await this.User(2);
+
+            var login = await this.SignIn(new User()
+            {
+                Email = "teste@gmail.com",
+                Password = "0102",
+            });
+
+            return View(login);
         }
 
         [HttpGet]
@@ -34,6 +42,12 @@ namespace MVC.Controllers
             }
 
             return View(userResult);
+        }
+
+        public async Task<IActionResult> Users()
+        {
+            var users = await this._userService.GetAllAsync();
+            return View(users);
         }
 
         [HttpPost]

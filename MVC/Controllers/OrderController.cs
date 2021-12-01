@@ -21,40 +21,31 @@ namespace MVC.Controllers
         public async Task<IActionResult> Index()
         {
 
-            try
-            {
-                var insertOrder = await this.RegisterOrder(new Order()
-                {
-                    ClientId = 1,
-                    RestaurantId = 3,
-                    Plates = new List<Plate>()
-                    {
-                        new Plate()
-                        {
-                            CategoryId = 1,
-                            Name = "Coxinha",
-                            Description = "Coxinha de 200 gramas recheada com frago e requeijão",
-                            Price = 8.5,
-                            RestaurantId = 2
-                        },
-                        new Plate()
-                        {
-                            CategoryId = 2,
-                            Name = "Combo de sushi",
-                            Description = "30 peças de sushi sendo 10 urumakes filadélfia, 10 uruamakes kani e 10 urumake califórnia",
-                            Price = 50,
-                            RestaurantId = 3
-                        },
-                    },
-                    Status = Status.Finalizado,
-                }, 
-                new List<Plate>() { new Plate(), new Plate()}, 
-                1);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            //var insertOrder = await this.RegisterOrder(new Order()
+            //{
+            //    ClientId = 1,
+            //    RestaurantId = 3,
+            //    Plates = new List<Plate>()
+            //    {
+            //        new Plate()
+            //        {
+            //            CategoryId = 1,
+            //            Name = "Coxinha",
+            //            Description = "Coxinha de 200 gramas recheada com frago e requeijão",
+            //            Price = 8.5,
+            //            RestaurantId = 2
+            //        },
+            //        new Plate()
+            //        {
+            //            CategoryId = 2,
+            //            Name = "Combo de sushi",
+            //            Description = "30 peças de sushi sendo 10 urumakes filadélfia, 10 uruamakes kani e 10 urumake califórnia",
+            //            Price = 50,
+            //            RestaurantId = 3
+            //        },
+            //    },
+            //    Status = Status.Finalizado,
+            //});
 
             //var orders = await this.Orders();
 
@@ -62,9 +53,9 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterOrder(Order order, List<Plate> plates, int clientId)
+        public async Task<IActionResult> RegisterOrder(Order order)
         {
-            var result = await this._orderService.InsertAsync(order, plates, clientId);
+            var result = await this._orderService.InsertAsync(order);
             if (!result.Success)
             {
                 return ViewBag.Errors = result;

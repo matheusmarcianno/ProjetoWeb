@@ -41,7 +41,7 @@ namespace MVC.Controllers
 
             //var deletePlate = await this.DeletePlate(new Plate()
             //{
-            //    Id = 5, 
+            //    Id = 2,
             //    Name = "Combo de sushi",
             //    Description = "30 peças de sushi sendo 10 urumakes filadélfia, 10 uruamakes kani e 10 urumake califórnia",
             //    Price = 50,
