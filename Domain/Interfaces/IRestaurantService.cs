@@ -10,7 +10,7 @@ namespace Domain.Interfaces
         Task<Result> UpdateAsync(Restaurant restaurant);
         Task<SingleResult<Restaurant>> GetByIdAsync(int id);
         Task<DataResult<Restaurant>> GetAllAsync();
-        Task<DataResult<Restaurant>> GetPlates(Restaurant restaurant);
+        //Task<DataResult<Restaurant>> GetPlates(Restaurant restaurant);
 
     }
 

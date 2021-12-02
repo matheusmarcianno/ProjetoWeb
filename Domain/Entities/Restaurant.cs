@@ -14,7 +14,7 @@ namespace Domain.Entities
 
         public Restaurant(string name, string cnpj, string phoneNumber)
         {
-            this.name = name;
+            this.Name = name;
             this.Cnpj = cnpj;
             this.PhoneNumber = phoneNumber;
         }

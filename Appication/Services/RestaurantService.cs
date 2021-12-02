@@ -30,11 +30,11 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(restaurant);
         }
 
-        public async Task<DataResult<Restaurant>> GetPlates(Restaurant restaurant)
-        {
-            var restaurantPlates = await _dbContext.Set<Restaurant>().Include(r => r.Plates).FirstOrDefaultAsync(r => r.Id == restaurant.Id);
-            return ResultFactory.CreateSuccessDataResult(restaurantPlates);
-        }
+        //public async Task<DataResult<Restaurant>> GetPlates(Restaurant restaurant)
+        //{
+        //    var restaurantPlates = await _dbContext.Set<Restaurant>().Include(r => r.Plates).FirstOrDefaultAsync(r => r.Id == restaurant.Id);
+        //    return ResultFactory.CreateSuccessDataResult(restaurantPlates);
+        //}
 
         public virtual async Task<SingleResult<Restaurant>> InsertAsync(Restaurant restaurant)
         {

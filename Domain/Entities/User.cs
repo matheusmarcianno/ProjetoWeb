@@ -3,7 +3,7 @@
     public class User : EntityBase
     {
         public string Email { get; set; }
-        public string Passname { get; set; }
+        public string Password { get; set; }
         public int? RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
         public int? ClientId { get; set; }
@@ -11,10 +11,10 @@
 
         public User() { }
 
-        public User(string email, string passname)
+        public User(string email, string password)
         {
             this.Email = email;
-            this.Passname = passname;
+            this.Password = password;
         }
 
         public User SetClient(int clientId)

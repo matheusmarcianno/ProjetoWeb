@@ -11,13 +11,11 @@ namespace MVC.Controllers
     {
         private readonly IRestaurantService _restaurantService;
         private readonly IUserService _userService;
-        private readonly IPlateService _plateService;
 
-        public RestaurantController(IRestaurantService restaurantService, IUserService userService, IPlateService plateService)
+        public RestaurantController(IRestaurantService restaurantService, IUserService userService)
         {
             _restaurantService = restaurantService;
             _userService = userService;
-            _plateService = plateService;
         }
 
         public async Task<IActionResult> Index()

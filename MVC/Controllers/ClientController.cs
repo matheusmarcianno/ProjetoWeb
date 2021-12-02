@@ -8,10 +8,10 @@ namespace MVC.Controllers
 {
     public class ClientController : Controller
     {
-        private readonly IClientService _clientService;
+        private readonly ICategoryService _clientService;
         private readonly IUserService _userService;
 
-        public ClientController(IClientService clientService, IUserService userService)
+        public ClientController(ICategoryService clientService, IUserService userService)
         {
             this._clientService = clientService;    
             this._userService = userService;

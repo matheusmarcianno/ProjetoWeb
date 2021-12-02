@@ -14,7 +14,7 @@ namespace MVC.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService, IClientService clientService)
+        public UserController(IUserService userService, ICategoryService clientService)
         {
             this._userService = userService;
         }
@@ -23,18 +23,18 @@ namespace MVC.Controllers
         {
             //var users =  await this.User(2);
 
-            try
-            {
-                var login = await this.SignIn(new User()
-                {
-                    Email = "matheus@gmail.com",
-                    Password = "1234",
-                });
-            }
-            catch (Exception ex)
-            {
-                return ViewBag.Error = ex;
-            }
+            //try
+            //{
+            //    var login = await this.SignIn(new User()
+            //    {
+            //        Email = "matheus@gmail.com",
+            //        Password = "1234",
+            //    });
+            //}
+            //catch (Exception ex)
+            //{
+            //    return ViewBag.Error = ex;
+            //}
 
             return View();
         }

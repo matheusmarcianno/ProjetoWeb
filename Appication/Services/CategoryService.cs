@@ -30,9 +30,10 @@ namespace Appication.Services
             return ResultFactory.CreateSuccessSingleResult(category);
         }
 
-        public async Task<DataResult<Category>> GetPlates(Category category)
+        public async Task<DataResult<Plate>> GetPlates(Category category)
         {
-            var categoryPlates = await _dbContext.Set<Category>().Include(c => c.Plates).FirstOrDefaultAsync(c => c.Id == category.Id);
+            // Esse método, neste contexo, retornar uma Category e tinha um .Include(c => c.Plates) antes do FirstOrDefault
+            var categoryPlates = await _dbContext.Set<Plate>().FirstOrDefaultAsync(c => c.Id == category.Id);
             return ResultFactory.CreateSuccessDataResult(categoryPlates);
         }
 

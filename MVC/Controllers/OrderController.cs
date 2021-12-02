@@ -12,7 +12,7 @@ namespace MVC.Controllers
     {
         private readonly IOrderService _orderService;
 
-        public OrderController(IOrderService orderService, IClientService clientService)
+        public OrderController(IOrderService orderService, ICategoryService clientService)
         {
             this._orderService = orderService;
         }

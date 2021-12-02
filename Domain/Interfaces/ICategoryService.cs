@@ -11,6 +11,6 @@ namespace Domain.Interfaces
         Task<Result> UpdateAsync(Category category);
         Task<DataResult<Category>> GetAllAsync();
         Task<SingleResult<Category>> GetByIdAsync(int id);
-        Task<DataResult<Category>> GetPlates(Category category);
+        Task<DataResult<Plate>> GetPlates(Category category);
     }
 }
