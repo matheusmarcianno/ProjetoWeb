@@ -11,9 +11,9 @@ namespace Appication.Services
 {
     public class UserService : UserValidationModel, IUserService
     {
-        protected readonly MainContext _dbContext;
+        protected readonly UserContext _dbContext;
 
-        public UserService(MainContext dbContext)
+        public UserService(UserContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -22,65 +22,56 @@ namespace Appication.Services
         {
             var result = this.Validate(user);
             if (!result.IsValid)
-                return ResultFactory.CreateFailureSingleResult<User>();
+                return ResultFactory.CreateFailureSingleResult(user);
 
-            var userAuthenticate = await _dbContext.Set<User>()
-                .Include(u => u.Client)
-                .Include(u => u.Restaurant)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Password == user.Password && u.Email == user.Email);
+            var userAuthenticate = await _dbContext.Authenticate(user);
 
             if (userAuthenticate == null)
-                return ResultFactory.CreateFailureSingleResult<User>();
+                return ResultFactory.CreateFailureSingleResult(user);
 
-            return ResultFactory.CreateSuccessSingleResult(userAuthenticate);
+            return ResultFactory.CreateSuccessSingleResult(user);
         }
 
         public virtual async Task<DataResult<User>> GetAllAsync()
         {
-            var users = await _dbContext.Set<User>().ToListAsync();
-            return ResultFactory.CreateSuccessDataResult(users);
+            return await this._dbContext.GetAllAsync();
         }
 
-        public virtual async Task<SingleResult<User>> GetByEmail(string email)
-        {
-            var user = await _dbContext.Set<User>()
-                .Include(u => u.Client)
-                .Include(u => u.Restaurant)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email == email);
+        //public virtual async Task<SingleResult<User>> GetByEmail(string email)
+        //{
+        //    var user = await _dbContext.Set<User>()
+        //        .Include(u => u.Client)
+        //        .Include(u => u.Restaurant)
+        //        .AsNoTracking()
+        //        .FirstOrDefaultAsync(u => u.Email == email);
 
-            if (user == null)
-                return ResultFactory.CreateFailureSingleResult<User>();
+        //    if (user == null)
+        //        return ResultFactory.CreateFailureSingleResult<User>();
 
-            return ResultFactory.CreateSuccessSingleResult(user);
-        }
+        //    return ResultFactory.CreateSuccessSingleResult(user);
+        //}
 
         public virtual async Task<SingleResult<User>> GetByIdAsync(int id)
         {
-            var user = await _dbContext.Set<User>().FindAsync(id);
-            return ResultFactory.CreateSuccessSingleResult(user);
+            return await this._dbContext.GetByIdAsync(id);
         }
 
         public async Task<SingleResult<User>> InsertAsync(User user)
         {
             var validation = this.Validate(user);
-
             if (!validation.IsValid)
                 return ResultFactory.CreateSuccessSingleResult(user);
 
-            await _dbContext.Set<User>().AddAsync(user);
-            await _dbContext.SaveChangesAsync();
-
-            return ResultFactory.CreateSuccessSingleResult(user);
+            return await this._dbContext.InsertAsync(user);
         }
 
         public virtual async Task<Result> UpdateAsync(User user)
         {
-            _dbContext.Set<User>().Update(user);
-            await _dbContext.SaveChangesAsync();
+            var validation = this.Validate(user);
+            if (!validation.IsValid)
+                return ResultFactory.CreateSuccessSingleResult(user);
 
-            return ResultFactory.CreateSuccessResult();
+            return await this._dbContext.UpdateAsync(user);
         }
     }
 }

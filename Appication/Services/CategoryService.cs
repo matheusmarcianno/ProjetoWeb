@@ -20,22 +20,17 @@ namespace Appication.Services
 
         public virtual async Task<DataResult<Category>> GetAllAsync()
         {
-            //var categories = await _dbContext.Set<Category>().Include(c => c.Plates).ToListAsync();
-            var categories = await _dbContext.GetAllAsync();
-            return ResultFactory.CreateSuccessDataResult(categories);
+            return await _dbContext.GetAllAsync();
         }
 
         public async Task<SingleResult<Category>> GetByIdAsync(int id)
         {
-            var category = await _dbContext.Set<Category>().FindAsync(id);
-            return ResultFactory.CreateSuccessSingleResult(category);
+            return await _dbContext.GetByIdAsync(id);
         }
 
         public async Task<DataResult<Plate>> GetPlates(Category category)
         {
-            // Esse método, neste contexo, retornar uma Category e tinha um .Include(c => c.Plates) antes do FirstOrDefault
-            var categoryPlates = await _dbContext.Set<Plate>().FirstOrDefaultAsync(c => c.Id == category.Id);
-            return ResultFactory.CreateSuccessDataResult(categoryPlates);
+            return await _dbContext.GetPlates(category);
         }
 
         public virtual async Task<SingleResult<Category>> InsertAsync(Category category)
@@ -44,21 +39,16 @@ namespace Appication.Services
             if (!validation.IsValid)
                 return ResultFactory.CreateFailureSingleResult(category);
 
-            await this._dbContext.InsertAsync(category);
-
-            return ResultFactory.CreateSuccessSingleResult(category);
+            return await this._dbContext.InsertAsync(category);
         }
 
         public virtual async Task<Result> UpdateAsync(Category category)
         {
             var validation = this.Validate(category);
             if (!validation.IsValid)
-                return ResultFactory.CreateSuccessResult();
+                return ResultFactory.CreateSuccessSingleResult(category);
 
-            this._dbContext.Set<Category>().Update(category);
-            await this._dbContext.SaveChangesAsync();
-
-            return ResultFactory.CreateSuccessResult();
+            return await this._dbContext.UpdateAsync(category);
         }
     }
 

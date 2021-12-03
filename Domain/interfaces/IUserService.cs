@@ -11,6 +11,6 @@ namespace Domain.Interfaces
         Task<Result> UpdateAsync(User usewr);
         Task<SingleResult<User>> GetByIdAsync(int id);
         Task<DataResult<User>> GetAllAsync();
-        Task<SingleResult<User>> GetByEmail(string email);
+        //Task<SingleResult<User>> GetByEmail(string email);
     }
 }

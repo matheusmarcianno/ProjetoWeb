@@ -12,78 +12,64 @@ namespace Appication.Services
 {
     public class PlateService : PlateValidationModel, IPlateService
     {
-        protected readonly MainContext _dbContext;
+        protected readonly PlateContext _dbContext;
 
-        public PlateService(MainContext dbContext)
+        public PlateService(PlateContext dbContext)
         {
             _dbContext = dbContext;
         }
         public virtual async Task<Result> DeleteAsync(Plate plate)
         {
-            this._dbContext.Set<Plate>().Remove(plate);
-            await this._dbContext.SaveChangesAsync();
-
-            return ResultFactory.CreateSuccessResult();
+            return await _dbContext.DeleteAsync(plate);
         }
 
         public async Task<DataResult<Plate>> GetAllAsync()
         {
-            var plates = await this._dbContext.Set<Plate>().Include(p => p.Category).ToListAsync();
-            return ResultFactory.CreateSuccessDataResult(plates);
+            return await this._dbContext.GetAllAsync();
         }
 
         public virtual async Task<SingleResult<Plate>> GetByIdAsync(int id)
         {
-            var plate = await this._dbContext.Set<Plate>().FindAsync(id);
-            return ResultFactory.CreateSuccessSingleResult(plate);
+            return await this._dbContext.GetByIdAsync(id);
         }
 
         public virtual async Task<SingleResult<Plate>> InsertAsync(Plate plate)
         {
             var validation = this.Validate(plate);
             if (!validation.IsValid)
-            {
                 return ResultFactory.CreateFailureSingleResult(plate);
-            }
 
-            await this._dbContext.Set<Plate>().AddAsync(plate);
-            await this._dbContext.SaveChangesAsync();
-
-            return ResultFactory.CreateSuccessSingleResult(plate);
+            return await this._dbContext.InsertAsync(plate);
         }
 
         public virtual async Task<DataResult<Plate>> Search(string search, int id)
         {
-            var searchResult = await _dbContext.Set<Plate>().Where(p => p.Name == search && p.RestaurantId == id).ToListAsync();
-
-            if (searchResult == null)
+            if (search == null || id == 0)
                 return ResultFactory.CreateFailureDataResult<Plate>();
 
-            return ResultFactory.CreateSuccessDataResult(searchResult);
+            return await this._dbContext.SearchRestaurantPlates(search, id);
         }
 
         public virtual async Task<DataResult<Plate>> Search(string search)
         {
-            var searchResult = await _dbContext.Set<Plate>().Where(p => p.Name == search).ToListAsync();
-
-            if (searchResult == null)
+            if (search == null)
                 return ResultFactory.CreateFailureDataResult<Plate>();
 
-            return ResultFactory.CreateSuccessDataResult(searchResult);
+            return await this._dbContext.Search(search);
         }
 
         public async Task<DataResult<Plate>> GetPlates(Restaurant restaurant)
         {
-            var restaurantPlates = await _dbContext.Set<Plate>().Where(p => p.RestaurantId == restaurant.Id).ToListAsync();
-            return ResultFactory.CreateSuccessDataResult(restaurantPlates);
+            return await this._dbContext.GetPlates(restaurant);
         }
 
         public virtual async Task<Result> UpdateAsync(Plate plate)
         {
-            this._dbContext.Set<Plate>().Update(plate);
-            await this._dbContext.SaveChangesAsync();
+            var validation = this.Validate(plate);
+            if (!validation.IsValid)
+                return ResultFactory.CreateFailureSingleResult(plate);
 
-            return ResultFactory.CreateSuccessResult();
+            return await this._dbContext.UpdateAsync(plate);
         }
     }
 }
