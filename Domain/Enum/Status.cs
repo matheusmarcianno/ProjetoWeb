@@ -2,7 +2,7 @@
 {
     public enum Status
     {
-        Finalizado = 0, 
-        Em_Andamento = 1
+        Aceito = 0, 
+        Recusado = 1
     }
 }

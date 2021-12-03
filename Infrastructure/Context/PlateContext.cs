@@ -111,6 +111,45 @@ namespace Infrastructure.Context
             }
         }
 
+        public virtual async Task<DataResult<Plate>> GetPlatesCategory(Category category)
+        {
+            var connection = SqlDataBase.GetSqlConnection();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandText = "SELECT * FROM PLATES WHERE CATEGORYID = @ID";
+            command.Parameters.AddWithValue("@ID", category.Id);
+
+            try
+            {
+                await connection.OpenAsync();
+                var reader = await command.ExecuteReaderAsync();
+                var platesCategory = new List<Plate>();
+
+                while (await reader.ReadAsync())
+                {
+                    platesCategory.Add(new Plate
+                    {
+                        Id = Convert.ToInt32(reader["ID"]),
+                        Name = Convert.ToString(reader["NAME"]),
+                        Description = Convert.ToString(reader["DESCRIPTION"]),
+                        Price = Convert.ToDouble(reader["PRICE"]),
+                        CategoryId = Convert.ToInt32(reader["CATEGORYID"]),
+                        RestaurantId = Convert.ToInt32(reader["RESTAURANTID"])
+                    });
+                }
+                return ResultFactory.CreateSuccessDataResult(platesCategory);
+            }
+            catch (Exception)
+            {
+                return ResultFactory.CreateFailureDataResult(new Plate());
+            }
+            finally
+            {
+                await connection.DisposeAsync();
+            }
+        }
+
         public virtual async Task<DataResult<Plate>> GetPlates(Restaurant restaurant)
         {
             var connection = SqlDataBase.GetSqlConnection();
@@ -179,7 +218,7 @@ namespace Infrastructure.Context
             }
         }
 
-        public virtual async Task<DataResult<Plate>> Search(string search, int id)
+        public virtual async Task<DataResult<Plate>> SearchRestaurantPlates(string search, int id)
         {
             var connection = SqlDataBase.GetSqlConnection();
 

@@ -18,7 +18,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM CATEGORY ORDER BY ID";
+            command.CommandText = "SELECT * FROM CATEGORYS ORDER BY ID";
 
             try
             {
@@ -52,7 +52,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM CATEGORY WHERE ID = @ID";
+            command.CommandText = "SELECT * FROM CATEGORYS WHERE ID = @ID";
             command.Parameters.AddWithValue("@ID", id);
 
             try
@@ -76,7 +76,7 @@ namespace Infrastructure.Context
             }
         }
 
-        // TODO: Esse método deve estar aqui retornando um DataResult<Plate> 
+        // TODO: Esse método deve estar aqui retornando um DataResult<Plate> ou
         // deve estar no PlateContext passando uma Category como parametro?
         public virtual async Task<DataResult<Plate>> GetPlates(Category category)
         {
@@ -123,7 +123,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "INSERT INTO CATEGORY (NOME) VALUES (@NOME)";
+            command.CommandText = "INSERT INTO CATEGORYS (NOME) VALUES (@NOME)";
             command.Parameters.AddWithValue("@NOME", category.Name);
 
             try
@@ -148,7 +148,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "UPDATE CATEGORY SET NAME = @NAME WHERE ID = @ID";
+            command.CommandText = "UPDATE CATEGORYS SET NAME = @NAME WHERE ID = @ID";
             command.Parameters.AddWithValue("@NOME", category.Name);
             command.Parameters.AddWithValue("@ID", category.Id);
 

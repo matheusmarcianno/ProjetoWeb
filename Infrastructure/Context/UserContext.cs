@@ -20,7 +20,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM USER WHERE EMAIL = @EMAIL AND PASSWORD = @PASSWORD";
+            command.CommandText = "SELECT * FROM USERS WHERE EMAIL = @EMAIL AND PASSWORD = @PASSWORD";
             command.Parameters.AddWithValue("@EMAIL", user.Email);
             command.Parameters.AddWithValue("@PASSWORD", user.Password);
 
@@ -52,7 +52,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM USER ORDER BY ID";
+            command.CommandText = "SELECT * FROM USERS ORDER BY ID";
 
             try
             {
@@ -82,10 +82,10 @@ namespace Infrastructure.Context
             }
         }
 
-        public Task<SingleResult<User>> GetByEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<SingleResult<User>> GetByEmail(string email)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public virtual async Task<SingleResult<User>> GetByIdAsync(int id)
         {
@@ -93,7 +93,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM USER WHERE ID = @ID";
+            command.CommandText = "SELECT * FROM USERS WHERE ID = @ID";
             command.Parameters.AddWithValue("@ID", id);
 
             try
@@ -128,8 +128,8 @@ namespace Infrastructure.Context
             command.CommandText = "INSERT INTO USERS (EMAIL, PASSWORD, RESTAURANTID, CLIENTID) VALUES(@EMAIL, @PASSWORD, @RESTAURANTID, @CLIENTID)";
             command.Parameters.AddWithValue("@EMAIL", user.Id);
             command.Parameters.AddWithValue("@PASSWORD", user.Password);
-            command.Parameters.AddWithValue("@RESTAURANTID", user.RestaurantId);
-            command.Parameters.AddWithValue("@CLIENTID", user.ClientId);
+            command.Parameters.AddWithValue("@RESTAURANTID", user?.RestaurantId);
+            command.Parameters.AddWithValue("@CLIENTID", user?.ClientId);
 
             try
             {

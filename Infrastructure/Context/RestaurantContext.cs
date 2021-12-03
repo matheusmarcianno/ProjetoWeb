@@ -20,7 +20,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM RESTAURANT ORDER BY ID";
+            command.CommandText = "SELECT * FROM RESTAURANTS ORDER BY ID";
 
             try
             {
@@ -56,7 +56,7 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM RESTAURANT WHERE ID = @ID";
+            command.CommandText = "SELECT * FROM RESTAURANTS WHERE ID = @ID";
             command.Parameters.AddWithValue("@ID", id);
 
             try

@@ -11,16 +11,17 @@ namespace Appication.Services
 {
     public class CategoryService : CategoryValidationModel, ICategoryService
     {
-        protected readonly MainContext _dbContext;
+        protected readonly CategoryContext _dbContext;
 
-        public CategoryService(MainContext dbContext)
+        public CategoryService(CategoryContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         public virtual async Task<DataResult<Category>> GetAllAsync()
         {
-            var categories = await _dbContext.Set<Category>().Include(c => c.Plates).ToListAsync();
+            //var categories = await _dbContext.Set<Category>().Include(c => c.Plates).ToListAsync();
+            var categories = await _dbContext.GetAllAsync();
             return ResultFactory.CreateSuccessDataResult(categories);
         }
 
@@ -43,8 +44,7 @@ namespace Appication.Services
             if (!validation.IsValid)
                 return ResultFactory.CreateFailureSingleResult(category);
 
-            await this._dbContext.Set<Category>().AddAsync(category);
-            await this._dbContext.SaveChangesAsync();
+            await this._dbContext.InsertAsync(category);
 
             return ResultFactory.CreateSuccessSingleResult(category);
         }
