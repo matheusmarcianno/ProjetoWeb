@@ -12,6 +12,6 @@ namespace Domain.Entities
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
 
-        public ICollection<Order>  Orders { get; set; }
+        public List<Order>  Orders { get; set; }
     }
 }

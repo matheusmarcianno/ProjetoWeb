@@ -82,11 +82,6 @@ namespace Infrastructure.Context
             }
         }
 
-        //public Task<SingleResult<User>> GetByEmail(string email)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public virtual async Task<SingleResult<User>> GetByIdAsync(int id)
         {
             var connection = SqlDataBase.GetSqlConnection();

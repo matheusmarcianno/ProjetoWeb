@@ -22,8 +22,9 @@ namespace Infrastructure.Context
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM ORDER WHERE RESTAURANT ID = @ID";
-            command.Parameters.AddWithValue("@RESTAURANTID", restaurant.Id);
+            command.CommandText = @"SELECT O.CLIENTID, O.STATUS, (C.NAME)[CLIENTID] FROM ORDERS O
+                                    INNER JOIN CLIENTS C ON O.CLIENTID = C.ID WHERE RESTAURANTID = @ID";
+            command.Parameters.AddWithValue("@ID", restaurant.Id);
 
             try
             {
@@ -35,10 +36,8 @@ namespace Infrastructure.Context
                 {
                     allRestaurantOrders.Add(new Order()
                     {
-                        Id = (int)reader["ID"],
                         Status = (Status)reader["STATUS"],
                         ClientId = (int)reader["CLIENTID"],
-                        RestaurantId = (int)reader["RESTAURANTID"]
                     });
                 }
                 return ResultFactory.CreateSuccessDataResult(allRestaurantOrders);
@@ -53,6 +52,7 @@ namespace Infrastructure.Context
             }
         }
 
+        // Esse método era pra ser o OrderDetails, mas está errado.
         public virtual async Task<SingleResult<Order>> GetByIdAsync(int id)
         {
             var connection = SqlDataBase.GetSqlConnection();
@@ -60,6 +60,44 @@ namespace Infrastructure.Context
             var command = new SqlCommand();
             command.Connection = connection;
             command.CommandText = "SELECT * FROM ORDERS WHERE ID = @ID";
+
+            try
+            {
+                await connection.OpenAsync();
+                var reader = await command.ExecuteReaderAsync();
+                await reader.ReadAsync();
+
+                return ResultFactory.CreateSuccessSingleResult(new Order()
+                {
+                    Id = Convert.ToInt32(reader["ID"]),
+                    Status = (Status)reader["STATUS"],
+                    ClientId = Convert.ToInt32(reader["CLIENTID"]),
+                    RestaurantId = Convert.ToInt32(reader["RESTAURANTID"]),
+                });
+            }
+            catch (Exception)
+            {
+                return ResultFactory.CreateFailureSingleResult(new Order());
+            }
+            finally
+            {
+                await connection.DisposeAsync();
+            }
+        }
+
+        public virtual async Task<SingleResult<Order>> GetOrderDetails(Order order)
+        {
+            var connection = SqlDataBase.GetSqlConnection();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandText = @"SELECT OI.ORDERID, OI.PLATEID, OI.AMOUNT,
+                                    (P.NAME) [PLATEID], P.PRICE [PLATEID] FROM ORDER_ITEMS OI
+                                    INNER JOIN PLATES P ON OI.PLATEID = P.ID WHERE O.ID = @ID
+                                    SELECT O.CLIENTID, (C.NAME)[CLIENTID] FROM ORDERS O
+                                    INNER JOIN CLIENTS C ON O.CLIENTID = C.ID WHERE O.ID = @ID";
+
+            command.Parameters.AddWithValue("ID", order.Id);
 
             try
             {
@@ -128,11 +166,6 @@ namespace Infrastructure.Context
                     await connection.DisposeAsync();
                 }
             }
-        }
-
-        public Task<Result> UpdateAsync(Order order)
-        {
-            throw new NotImplementedException();
         }
     }
 }

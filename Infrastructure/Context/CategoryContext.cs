@@ -60,6 +60,7 @@ namespace Infrastructure.Context
                 connection.Open();
                 var reader = await command.ExecuteReaderAsync();
                 await reader.ReadAsync();
+
                 return ResultFactory.CreateSuccessSingleResult((new Category()
                 {
                     Id = Convert.ToInt32(reader["ID"]),

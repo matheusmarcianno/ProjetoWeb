@@ -13,6 +13,6 @@ namespace Domain.Entities
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
 
-        public ICollection<Plate> Plates { get; set; }
+        public List<Plate> Plates { get; set; }
     }
 }
