@@ -85,17 +85,20 @@ namespace Infrastructure.Context
             }
         }
 
-        public virtual async Task<SingleResult<Order>> GetOrderDetails(Order order)
+        // Não sei se faz sentido, já que é pra buscar apenas o nome do Cliente porque já não fazer isso no Context de Cliente?
+        public virtual async Task<SingleResult<Order>> GetOrderClientDetails(Order order)
         {
             var connection = SqlDataBase.GetSqlConnection();
 
             var command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = @"SELECT OI.ORDERID, OI.PLATEID, OI.AMOUNT,
+            command.CommandText = @"SELECT O.CLIENTID, (C.NAME) [CLIENTID], (C.CEP) [CLIENTID] FROM ORDERS O
+                                    INNER JOIN CLIENTS C ON 0.CLIENTID = C.ID"; 
+            /*command.CommandText = @"SELECT OI.ORDERID, OI.PLATEID, OI.AMOUNT,
                                     (P.NAME) [PLATEID], P.PRICE [PLATEID] FROM ORDER_ITEMS OI
                                     INNER JOIN PLATES P ON OI.PLATEID = P.ID WHERE O.ID = @ID
                                     SELECT O.CLIENTID, (C.NAME)[CLIENTID] FROM ORDERS O
-                                    INNER JOIN CLIENTS C ON O.CLIENTID = C.ID WHERE O.ID = @ID";
+                                    INNER JOIN CLIENTS C ON O.CLIENTID = C.ID WHERE O.ID = @ID";*/
 
             command.Parameters.AddWithValue("ID", order.Id);
 
@@ -125,7 +128,7 @@ namespace Infrastructure.Context
 
         public virtual async  Task<SingleResult<Order>> InsertAsync(Order order)
         {
-            order.Status = Domain.Enum.Status.Aceito;
+            order.Status = Status.Aceito;
             var connection = SqlDataBase.GetSqlConnection();
 
             var command = new SqlCommand();
@@ -158,6 +161,7 @@ namespace Infrastructure.Context
                     return ResultFactory.CreateSuccessSingleResult(order);
                 }
                 catch (Exception)
+        
                 {
                     return ResultFactory.CreateFailureSingleResult(order);
                 }
